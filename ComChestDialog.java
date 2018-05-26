@@ -28,7 +28,7 @@ public class ComChestDialog extends JDialog{
 		
 		Image resource = null;
 		 try {
-            resource = ImageIO.read(getClass().getResource("/ComChest.jpg"));
+            resource = ImageIO.read(getClass().getResource("/cchest.jpg"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

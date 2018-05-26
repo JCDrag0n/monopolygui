@@ -129,7 +129,7 @@ public class GameHandler {
 				current.changeMoney(0 - 50);
 			}
 			else {
-				//insertJailDialog here
+				
 			}
 		}
 		else {

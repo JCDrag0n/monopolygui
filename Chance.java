@@ -23,25 +23,25 @@ public class Chance implements Space{
 		int ran = (int) (Math.random() * 16);
 		if (ran == 0)
         {
-			chanceString = "Chance Card: Advance to Go!";
+			chanceString = "Advance to Go!";
             p.moveTo(0);
             InitBoard.getSpaces().get(0).payRent(p);
         }
         if (ran == 1)
         {
-        	chanceString = "Chance Card: Advance to Illinois Ave.";
+        	chanceString = "Advance to Illinois Ave.";
             p.moveTo(24);
             InitBoard.getSpaces().get(24).payRent(p);
         }
         if (ran == 2)
         {
-        	chanceString = "Chance Card: Advance to St. Charles Place.";
+        	chanceString = "Advance to St. Charles Place.";
             p.moveTo(11); 
             InitBoard.getSpaces().get(11).payRent(p);
         }
         if (ran == 3)
         {
-        	chanceString = "Chance Card: Advance to the nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.";
+        	chanceString = "Advance to the nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.";
             if (p.getPos() < 12 || p.getPos() > 28)
             {
             	p.moveTo(12);
@@ -66,7 +66,7 @@ public class Chance implements Space{
         }
         if (ran == 4)
         {
-        	chanceString = "Chance Card: Advance to the nearest Railroad and pay the owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.";
+        	chanceString = "Advance to the nearest Railroad and pay the owner twice the rental to which he/she is otherwise entitled. If Railroad is unowned, you may buy it from the Bank.";
             if (p.getPos() < 5) 
             {
             	p.moveTo(5);
@@ -100,27 +100,27 @@ public class Chance implements Space{
         }
         if (ran == 5)
         {
-        	chanceString = "Chance Card: Bank pays you dividend of $50.";
+        	chanceString = "Bank pays you dividend of $50.";
             p.changeMoney(50);
         }
         if (ran == 6)
         {
-        	chanceString = "Chance Card: Get Out Of Jail Free -- This card may be kept until needed.";
+        	chanceString = "Get Out Of Jail Free -- This card may be kept until needed.";
             p.drawGetOutCard();
         }
         if (ran == 7)
         {
-        	chanceString = "Chance Card: Go Back 3 Spaces";
+        	chanceString = "Go Back 3 Spaces";
             p.moveTo(p.getPos() - 3);
         }
         if (ran == 8)
         {
-        	chanceString = "Chance Card: Go To Jail -- Go Directly To Jail -- Do not pass Go, do not collect $200.";
+        	chanceString = "Go To Jail -- Go Directly To Jail -- Do not pass Go, do not collect $200.";
             p.goToJail();
         }
         if (ran == 9)
         {
-        	chanceString = "Chance Card: Make general repairs on all your property -- For each house pay $25 -- For each hotel pay $100.";
+        	chanceString = "Make general repairs on all your property -- For each house pay $25 -- For each hotel pay $100.";
         	int i = 0;
         	i += p.getHouses() * 25;
         	i += p.getHotels() * 100;
@@ -128,23 +128,23 @@ public class Chance implements Space{
         }
         if (ran == 10)
         {
-        	chanceString = "Chance Card: Pay poor tax of $15.";
+        	chanceString = "Pay poor tax of $15.";
             p.changeMoney(0-15);
         }
         if (ran == 11)
         {
-        	chanceString = "Chance Card: Take a trip to Reading Railroad -- If you pass Go, collect $200.";
+        	chanceString = "Take a trip to Reading Railroad -- If you pass Go, collect $200.";
         	if (p.getPos() > 5) {p.changeMoney(200);}
             p.moveTo(5);
         }
         if (ran == 12)
         {
-        	chanceString = "Chance Card: Advance to Boardwalk.";
+        	chanceString = "Advance to Boardwalk.";
             p.moveTo(39);
         }
         if (ran == 13)
         {
-        	chanceString = "Chance Card: You have been elected Chairman of the Board -- Pay each $50";
+        	chanceString = "You have been elected Chairman of the Board -- Pay each $50";
             p.changeMoney(0-150);
             ArrayList<Player> temp = InitBoard.getPlayers();
             for (int i = 0; i < temp.size(); i++)
@@ -154,12 +154,12 @@ public class Chance implements Space{
         }
         if (ran == 14)
         {
-        	chanceString = "Chance Card: Your building and loan matures -- Collect $150.";
+        	chanceString = "Your building and loan matures -- Collect $150.";
             p.changeMoney(150);
         }
         if (ran == 15)
         {
-        	chanceString = "Chance Card: You have won a crossword competition -- Collect $100.";
+        	chanceString = "You have won a crossword competition -- Collect $100.";
             p.changeMoney(100);
         }
 	}
