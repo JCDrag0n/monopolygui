@@ -178,11 +178,6 @@ public class GameHandler {
 			current.changeMoney(200);
 		}
 		
-		if (i == j)
-		{
-			doubleCount++;
-			roll.setEnabled(true);
-		}
 		if (doubleCount == 0)
 		{
 			roll.setEnabled(false);
@@ -197,17 +192,25 @@ public class GameHandler {
 			//gotoJail code
 		}
 		else {
-			endTurn.setEnabled(false);
 			roll.setEnabled(true);
 			buy.setEnabled(true);
+		}
+		if (i == j)
+		{
+			doubleCount++;
+			roll.setEnabled(true);
+			endTurn.setEnabled(false);
+		}
+		else 
+		{
+			endTurn.setEnabled(true);
+			roll.setEnabled(false);
 		}
 		
 		current.moveTo(location);
 		
 		if ((InitBoard.getSpaces().get(location) instanceof Chance))
 		{
-			chanceString = ((Chance)InitBoard.getSpaces().get(location)).returnString();
-			chance.doClick();
 			if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
 			{
 				buy.setEnabled(false);
@@ -224,12 +227,11 @@ public class GameHandler {
 			else {
 				buy.setEnabled(false);
 				InitBoard.getSpaces().get(location).payRent(current);
-		}
+			}
+			chance.doClick();
 		}
 		if ((InitBoard.getSpaces().get(location) instanceof CommunityChest))
 		{
-			chestString = ((CommunityChest)InitBoard.getSpaces().get(location)).returnString();
-			community.doClick();
 			if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
 			{
 				buy.setEnabled(false);
@@ -246,7 +248,8 @@ public class GameHandler {
 			else {
 				buy.setEnabled(false);
 				InitBoard.getSpaces().get(location).payRent(current);
-		}
+			}
+			community.doClick();
 		}
 		if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
 		{

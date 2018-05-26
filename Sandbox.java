@@ -646,7 +646,7 @@ public class Sandbox {
                chancePop.setVisible(true);
 
                ChanceDialog chanceDialog = new ChanceDialog(frame, "CHANCE CARD",
-                     ModalityType.APPLICATION_MODAL, GameHandler.getChance());
+                     ModalityType.APPLICATION_MODAL, Chance.returnString());
                chanceDialog.initUI();
                chanceDialog.pack();
                chanceDialog.setLocationRelativeTo(layeredPane);
@@ -662,7 +662,7 @@ public class Sandbox {
                chancePop.setVisible(true);
 
                ComChestDialog chestDialog = new ComChestDialog(frame, "COMMUNITY CHEST CARD",
-                     ModalityType.APPLICATION_MODAL, GameHandler.getCommunity());
+                     ModalityType.APPLICATION_MODAL, CommunityChest.returnString());
                chestDialog.initUI();
                chestDialog.pack();
                chestDialog.setLocationRelativeTo(layeredPane);

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Chance implements Space{
-	private String chanceString;
+	private static String chanceString;
 	
 	public Chance()
 	{
@@ -164,7 +164,7 @@ public class Chance implements Space{
         }
 	}
 	
-	public String returnString()
+	public static String returnString()
 	{
 		return chanceString;
 	}

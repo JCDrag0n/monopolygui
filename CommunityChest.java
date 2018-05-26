@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class CommunityChest implements Space {
 	
-	private String chestString;
+	private static String chestString;
 	
 	public CommunityChest()
 	{
@@ -111,7 +111,7 @@ public class CommunityChest implements Space {
         }
 	}
 	
-	public String returnString() {
+	public static String returnString() {
 		return chestString;
 	}
 	public void buy(Player p) {}
