@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class ComChestDialog extends JDialog{
 	
@@ -22,7 +24,7 @@ public class ComChestDialog extends JDialog{
 	
 	public void initUI()
 	{
-		JPanel cardPane = new JPanel();
+		JPanel cardPane = new JPanel(new BorderLayout());
 		
 		Image resource = null;
 		 try {
@@ -31,14 +33,17 @@ public class ComChestDialog extends JDialog{
             ioe.printStackTrace();
         }
 		 
-		 StretchIcon result = new StretchIcon(resource, true);
+		StretchIcon result = new StretchIcon(resource, true);
 		JLabel comChestImg = new JLabel(result);
 		JLabel comChestDialog = new JLabel(action);
+		comChestDialog.setBorder(new EmptyBorder(10,10,10,10));
+		comChestDialog.setFont(FontLoader.enableFont(20f));
 		
 		boardLabel.setAllSizes(comChestImg, imgD);
 		
-		cardPane.add(comChestImg);
-		cardPane.add(comChestDialog);
+		cardPane.add(comChestImg, BorderLayout.LINE_START);
+		cardPane.add(comChestDialog, BorderLayout.LINE_END);
+		pack();
 
 		setContentPane(cardPane);
 	}

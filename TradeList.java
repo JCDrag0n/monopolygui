@@ -48,10 +48,6 @@ public class TradeList extends JPanel implements ListSelectionListener{
 		super(new BorderLayout());
 		this.source = source;
 		mainListModel = new DefaultListModel();
-		mainListModel.addElement("Mediterranean Ave");
-		mainListModel.addElement("Oriental Ave");
-		mainListModel.addElement("New York Ave");
-		mainListModel.addElement("Boardwalk");
 		
 		mainList = new JList(mainListModel);
 		mainList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -61,10 +57,6 @@ public class TradeList extends JPanel implements ListSelectionListener{
 		mainListScrollPane.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10,10,10,10), BorderFactory.createTitledBorder("YOUR INVENTORY")));
 		
 		secondListModel = new DefaultListModel();
-		secondListModel.addElement("Mediterranean Ave");
-		secondListModel.addElement("Oriental Ave");
-		secondListModel.addElement("New York Ave");
-		secondListModel.addElement("Boardwalk");
 		
 		secondList = new JList(secondListModel);
 		secondList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -154,6 +146,18 @@ public class TradeList extends JPanel implements ListSelectionListener{
 		add(listPane, BorderLayout.LINE_START);
 		add(buttonPane, BorderLayout.CENTER);
 		add(areaPane, BorderLayout.LINE_END);
+	}
+	
+	public void updateList()
+	{
+		for (int i = 0; i < GameHandler.getPlayer().getProperties().size(); i++)
+		{
+			mainListModel.addElement(GameHandler.getPlayer().getProperties().get(i));
+		}
+		for (int i = 0; i < GameHandler.getNextPlayer().getProperties().size(); i++)
+		{
+			secondListModel.addElement(GameHandler.getNextPlayer().getProperties().get(i));
+		}
 	}
 	
 	  public void valueChanged(ListSelectionEvent e) {

@@ -39,7 +39,7 @@ public class Board extends JPanel implements Runnable {
       //  private FontMetrics metrics;
 //        private House house = new House();
 //        private Flower flower = new Flower();
-        Player player = new Player();
+        Icon player = new Icon();
        // private int px = 200;
         //private int py = 400;
         private long period;

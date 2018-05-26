@@ -65,16 +65,18 @@ public class Sandbox {
 	private JButton menu;
 	private JButton endTurn;
 	private JButton manage;
+	private JButton chance;
+	private JButton community;
 	
 	private JLayeredPane layeredPane;
 	
 	private Board spritePane;
 	
-	private JLabel currentIcon, med, cchest, balt, tax1, rrail, ori, chance, ver, con, jail; 
-	private JLabel stc, ele, stat, virg, penn, stj, cchest2, tenn, ny, fpark;
-	private JLabel kent, chance2, ind, ill, bor, alta, vent, water, marvin, gtjail;
-	private JLabel pacific, north, cchest3, pennave, shortL, chance3, park, tax2, boardwalk, go, center;
-	
+//	private JLabel currentIcon, med, cchest, balt, tax1, rrail, ori, chance, ver, con, jail; 
+//	private JLabel stc, ele, stat, virg, penn, stj, cchest2, tenn, ny, fpark;
+//	private JLabel kent, chance2, ind, ill, bor, alta, vent, water, marvin, gtjail;
+//	private JLabel pacific, north, cchest3, pennave, shortL, chance3, park, tax2, boardwalk, go, center;
+//	
 	private CardLayout switcher;
 	
 	protected static final Color GP_COLOR = new Color(0, 0, 0, 30);
@@ -494,6 +496,8 @@ public class Sandbox {
     {
     	log = new JTextArea();
     	log.setEditable(false);
+    	log.setLineWrap(true);
+    	log.setWrapStyleWord(true);
     	header = new JLabel("Log");
     	scrollPane = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     	scrollPane.setPreferredSize(new Dimension(320,408));
@@ -532,7 +536,12 @@ public class Sandbox {
     	GridBagConstraints managec = new GridBagConstraints();
     	GridBagConstraints endTurnC = new GridBagConstraints();
     	
-    	buy = new JButton("BUY");
+    	buy = new JButton(new AbstractAction("BUY") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+    			GameHandler.buy();
+        }});
     	
     	buyc.gridx = 0;
     	buyc.gridy = 0;
@@ -543,7 +552,12 @@ public class Sandbox {
     	
     	buy.setEnabled(false);
     	
-    	roll = new JButton("ROLL");
+    	roll = new JButton(new AbstractAction("ROLL") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+    			GameHandler.roll();
+        }});
     	
     	rollc.gridx = 0;
     	rollc.gridy = 1;
@@ -576,7 +590,12 @@ public class Sandbox {
     	menuc.insets = new Insets(5, 5, 5, 5);
     	menuc.fill = GridBagConstraints.BOTH;
     	
-    	endTurn = new JButton("END TURN");
+    	endTurn = new JButton(new AbstractAction("END TURN") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+               GameHandler.endTurn();
+        }});
     	
     	endTurnC.gridx = 1;
     	endTurnC.gridy = 1;
@@ -620,6 +639,39 @@ public class Sandbox {
     	managec.insets = new Insets(5, 5, 5, 5);
     	managec.fill = GridBagConstraints.BOTH;
     	
+    	chance = new JButton(new AbstractAction("CHANCE") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+               chancePop.setVisible(true);
+
+               ChanceDialog chanceDialog = new ChanceDialog(frame, "CHANCE CARD",
+                     ModalityType.APPLICATION_MODAL, GameHandler.getChance());
+               chanceDialog.initUI();
+               chanceDialog.pack();
+               chanceDialog.setLocationRelativeTo(layeredPane);
+               chanceDialog.setVisible(true);
+               
+               chancePop.setVisible(false);
+            }});
+               
+    	community = new JButton(new AbstractAction("CHEST") {
+
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+               chancePop.setVisible(true);
+
+               ComChestDialog chestDialog = new ComChestDialog(frame, "COMMUNITY CHEST CARD",
+                     ModalityType.APPLICATION_MODAL, GameHandler.getCommunity());
+               chestDialog.initUI();
+               chestDialog.pack();
+               chestDialog.setLocationRelativeTo(layeredPane);
+               chestDialog.setVisible(true);
+               
+               chancePop.setVisible(false);
+            }});
+               
+    	
     	buttonHolder.add(buy, buyc);
     	buttonHolder.add(manage, managec);
     	buttonHolder.add(roll, rollc);
@@ -647,6 +699,36 @@ public class Sandbox {
     public JPanel getStartPane()
     {
     	return switchPane;
+    }
+    
+    public JTextArea getLog()
+    {
+    	return log;
+    }
+    
+    public JButton getRoll()
+    {
+    	return roll;
+    }
+    
+    public JButton getEndTurn()
+    {
+    	return endTurn;
+    }
+    
+    public JButton getBuy()
+    {
+    	return buy;
+    }
+    
+    public JButton getChance()
+    {
+    	return chance;
+    }
+    
+    public JButton getCommunity()
+    {
+    	return community;
     }
     
     

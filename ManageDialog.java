@@ -52,7 +52,7 @@ public class ManageDialog extends JDialog {
 		 wallet.setIcon(result);
 		 wallet.setHorizontalTextPosition(JLabel.LEADING);
 		 
-		 JTextArea properties = new JTextArea("Name: Justin Chan\nToken: Car\nWallet: 1500$\n\n ------------------------------- \n\nProperties Owned:\n"
+		 JTextArea properties = new JTextArea("Name: " + GameHandler.getPlayer().getName() + "\n" + "Token: Car\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\nProperties Owned:\n"
 		 		+ "\nMediterranean Ave\n");
 		 properties.setFont(FontLoader.enableFont(14f));
 		 properties.setEditable(false);
@@ -72,8 +72,10 @@ public class ManageDialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 			 JDialog tradeDialog = new JDialog(frame, "TRADE",
 	                    ModalityType.APPLICATION_MODAL);
-			 tradeDialog.add(new TradeList(tradeDialog));
+			 TradeList list = new TradeList(tradeDialog);
+			 tradeDialog.add(list);
 			 tradeDialog.pack();
+			 list.updateList();
 			 tradeDialog.setLocationRelativeTo(frame);
 			 tradeDialog.setVisible(true);
 			}
@@ -86,7 +88,9 @@ public class ManageDialog extends JDialog {
 			 {
 				 JDialog propertiesDialog = new JDialog(frame, "PROPERTIES",
 		                    ModalityType.APPLICATION_MODAL);
-				 propertiesDialog.add(new PropertyList(propertiesDialog));
+				 PropertyList propList = new PropertyList(propertiesDialog);
+				 propertiesDialog.add(propList);
+				 propList.updateList();
 				 propertiesDialog.pack();
 				 propertiesDialog.setLocationRelativeTo(frame);
 	             propertiesDialog.setVisible(true);

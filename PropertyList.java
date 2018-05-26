@@ -39,12 +39,8 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 	{
 		super(new BorderLayout());
 		this.source = source;
+	
 		listModel = new DefaultListModel();
-		listModel.addElement("Mediterranean Ave");
-		listModel.addElement("Oriental Ave");
-		listModel.addElement("New York Ave");
-		listModel.addElement("Boardwalk");
-		
 		list = new JList(listModel);
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		list.addListSelectionListener(this);
@@ -90,6 +86,14 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 		
 		add(listScrollPane, BorderLayout.LINE_START);
 		add(buttonPane, BorderLayout.LINE_END);
+	}
+	
+	public void updateList()
+	{
+		for (int i = 0; i < GameHandler.getPlayer().getProperties().size(); i++)
+		{
+			listModel.addElement(GameHandler.getPlayer().getProperties().get(i));
+		}
 	}
 	
 	  public void valueChanged(ListSelectionEvent e) {

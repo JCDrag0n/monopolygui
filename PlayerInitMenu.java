@@ -57,6 +57,11 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private JTextField playerOneName, playerTwoName, playerThreeName, playerFourName;
 	private JLabel textFieldLabel1, textFieldLabel2, textFieldLabel3, textFieldLabel4;
 	
+	private String pOneName;
+	private String pTwoName;
+	private String pThreeName;
+	private String pFourName;
+	
 	
 	private CardLayout switcher;
 	private CardLayout layout;
@@ -171,6 +176,11 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		playerTwoName = new JTextField(15);
 		playerThreeName = new JTextField(15);
 		playerFourName = new JTextField(15);
+		
+//		playerOneName.addActionListener(this);
+//		playerTwoName.addActionListener(this);
+//		playerThreeName.addActionListener(this);
+//		playerFourName.addActionListener(this);
 		
 		boardLabel.setAllSizes(playerOneName, fieldD);
 		boardLabel.setAllSizes(playerTwoName, fieldD);
@@ -297,8 +307,18 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	    
 	    else if (source == start) {
 
-	    	switchHandler.switchTo(Sandbox.GAMEPANEL);
+	    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
+	    	pOneName = playerOneName.getText();
+	    	pTwoName = playerTwoName.getText();
+	    	pThreeName = playerThreeName.getText();
+	    	pFourName = playerFourName.getText(); 
+	    	System.out.println(pOneName);
+	    	System.out.println(pTwoName);
+	    	System.out.println(pThreeName);
+	    	System.out.println(pFourName);
+	    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, switchHandler, 2);
 	    	dispose();
+	    	
 	    }
 
 	    }
