@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class PropertyList extends JPanel implements ListSelectionListener{
+public class PropertyList extends JPanel implements ListSelectionListener, ActionListener{
 
 	private JList list;
 	private DefaultListModel listModel;
@@ -26,7 +26,6 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 	
 	private JButton mortgage;
 	private JButton unmortgage;
-	private JButton sell;
 	private JButton addHouses;
 	private JButton sellHouses;
 	private JButton back;
@@ -34,6 +33,7 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 	private JDialog source;
 	
 	private Dimension buttonD = new Dimension(130, 50);
+	private String property;
 	
 	public PropertyList(JDialog source)
 	{
@@ -41,18 +41,21 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 		this.source = source;
 	
 		listModel = new DefaultListModel();
-		list = new JList(listModel);
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		list = new JList<String>(listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(this);
 		list.setFont(FontLoader.enableFont(16f));
 		JScrollPane listScrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		listScrollPane.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10,10,10,10), BorderFactory.createTitledBorder("LIST OF PROPERTIES")));
 		
 		mortgage = new JButton("MORTGAGE");
+		mortgage.addActionListener(this);
 		unmortgage = new JButton("UNMORTGAGE");
-		sell = new JButton("SELL");
+		unmortgage.addActionListener(this);
 		addHouses = new JButton("ADD HOUSES");
+		addHouses.addActionListener(this);
 		sellHouses = new JButton("SELL HOUSES");
+		sellHouses.addActionListener(this);
 		back = new JButton("BACK");
 		back.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
@@ -60,9 +63,12 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 				 source.dispose();
 			 }
 		});
+	    mortgage.setEnabled(false);
+        unmortgage.setEnabled(false);
+        addHouses.setEnabled(false);
+        sellHouses.setEnabled(false);
 		boardLabel.setAllSizes(mortgage, buttonD);
 		boardLabel.setAllSizes(unmortgage, buttonD);
-		boardLabel.setAllSizes(sell, buttonD);
 		boardLabel.setAllSizes(addHouses, buttonD);
 		boardLabel.setAllSizes(sellHouses, buttonD);
 		boardLabel.setAllSizes(back, buttonD);
@@ -74,8 +80,6 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 		buttonPane.add(mortgage);
 		buttonPane.add(Box.createRigidArea(new Dimension(10,10)));
 		buttonPane.add(unmortgage);
-		buttonPane.add(Box.createRigidArea(new Dimension(10,10)));
-		buttonPane.add(sell);
 		buttonPane.add(Box.createRigidArea(new Dimension(10,10)));
 		buttonPane.add(addHouses);
 		buttonPane.add(Box.createRigidArea(new Dimension(10,10)));
@@ -92,29 +96,125 @@ public class PropertyList extends JPanel implements ListSelectionListener{
 	{
 		for (int i = 0; i < GameHandler.getPlayer().getProperties().size(); i++)
 		{
+			listModel.removeAllElements();
 			listModel.addElement(GameHandler.getPlayer().getProperties().get(i));
 		}
 	}
 	
 	  public void valueChanged(ListSelectionEvent e) {
 	        if (e.getValueIsAdjusting() == false) {
-	 
 	            if (list.getSelectedIndex() == -1) {
 	            //No selection, disable fire button.
 	                mortgage.setEnabled(false);
 	                unmortgage.setEnabled(false);
-	                sell.setEnabled(false);
 	                addHouses.setEnabled(false);
 	                sellHouses.setEnabled(false);
-	                
 	            } else {
-	            //Selection, enable the fire button.
-	            	mortgage.setEnabled(true);
-	                unmortgage.setEnabled(true);
-	                sell.setEnabled(true);
-	                addHouses.setEnabled(true);
-	                sellHouses.setEnabled(true);
+	            	property = list.getSelectedValue().toString();
+	            	int spaceIndex = 0;
+	            	for (int i = 0; i < 40; i++)
+	            	{
+	            		if (GameHandler.getSpaces().get(i).getName().equals(property))
+	            		{
+	            			spaceIndex = i;
+	            		}
+	            	}
+	            	
+	            	if (GameHandler.getSpaces().get(spaceIndex) instanceof Railroad)
+	            	{
+	            		addHouses.setEnabled(false);
+		                sellHouses.setEnabled(false);
+		                Railroad temp = (Railroad)GameHandler.getSpaces().get(spaceIndex);
+	            		if(temp.getMortgageState())
+	            		{
+	            			mortgage.setEnabled(false);
+	            			unmortgage.setEnabled(true);
+	            		}
+	            		else {
+	            			mortgage.setEnabled(true);
+	            			unmortgage.setEnabled(false);
+	            		}
+	            	}
+	            	if (GameHandler.getSpaces().get(spaceIndex) instanceof Utility)
+	            	{
+	            		addHouses.setEnabled(false);
+		                sellHouses.setEnabled(false);
+		                Utility temp = (Utility)GameHandler.getSpaces().get(spaceIndex);
+	            		if(temp.getMortgageState())
+	            		{
+	            			mortgage.setEnabled(false);
+	            			unmortgage.setEnabled(true);
+	            		}
+	            		else {
+	            			mortgage.setEnabled(true);
+	            			unmortgage.setEnabled(false);
+	            		}
+	            	}
+	            	if (GameHandler.getSpaces().get(spaceIndex) instanceof Property)
+	            	{
+	            		Property temp = (Property)GameHandler.getSpaces().get(spaceIndex);
+	            		if(temp.getMortgageState())
+	            		{
+	            			mortgage.setEnabled(false);
+	            			unmortgage.setEnabled(true);
+	            		}
+	            		else {
+	            			mortgage.setEnabled(true);
+	            			unmortgage.setEnabled(false);
+	            		}
+	            		
+	            		if(temp.getOwner().hasMonopoly(temp.getColor()))
+	            		{
+	            			if(temp.getHouses() > 0 && temp.getHouses() < 5)
+	            			{
+	            				if(temp.getHouses() == 4)
+	            				{
+	            					addHouses.setText("ADD HOTEL");
+	            				}
+	            				else { addHouses.setText("ADD HOUSES"); }
+	            				addHouses.setEnabled(true);
+	            				sellHouses.setEnabled(true);
+	            			}
+	            			else if (temp.getHouses() == 0)
+	            			{
+	            				addHouses.setEnabled(true);
+	            				sellHouses.setEnabled(false);
+	            			}
+	            		}
+	            	}
 	            }
 	        }
 	    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton source = (JButton)e.getSource();
+		int spaceIndex = 0;
+		for (int i = 0; i < 40; i++)
+    	{
+    		if (GameHandler.getSpaces().get(i).getName().equals(property))
+    		{
+    			spaceIndex = i;
+    		}
+    	}
+		if (source == mortgage)
+		{
+			GameHandler.getSpaces().get(spaceIndex).mortgage();
+			updateList();
+		}
+		if (source == unmortgage)
+		{
+			GameHandler.getSpaces().get(spaceIndex).unmortgage();
+			updateList();
+		}
+		if (source == addHouses)
+		{
+			GameHandler.getSpaces().get(spaceIndex).addHouse();
+		}
+		if (source == sellHouses)
+		{
+			GameHandler.getSpaces().get(spaceIndex).removeHouse();
+		}
+	}
 }

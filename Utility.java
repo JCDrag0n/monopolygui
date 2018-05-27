@@ -77,6 +77,11 @@ public class Utility implements Space{
 		return yCo;
 	}
 	
+	public boolean getMortgageState()
+	{
+		return isMortgaged;
+	}
+	
 	public void addHouse() {}
 	public void removeHouse() {}
 	public void ownerNull() {}

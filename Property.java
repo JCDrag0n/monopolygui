@@ -45,6 +45,7 @@ public class Property implements Space{
 	public void ownerNull()
 	{
 		owner = null;
+		owner.getProperties().remove(this.getName());
 	}
 	public String getColor()
 	{
@@ -54,6 +55,12 @@ public class Property implements Space{
 	{
 		return numHouses;
 	}
+	
+	public boolean getMortgageState()
+	{
+		return isMortgaged;
+	}
+	
 	public void addHouse() 
 	{
 		if (owner.hasMonopoly(color) && numHouses < 5)
@@ -168,4 +175,6 @@ public class Property implements Space{
 	{
 		return yCod;
 	}
+	
+
 }

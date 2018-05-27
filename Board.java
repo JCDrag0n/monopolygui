@@ -535,8 +535,9 @@ public class Board extends JPanel implements Runnable {
 
         private void gameUpdate() {
             if (!isPaused && !gameOver && GameHandler.isReady()) {
-                GameHandler.getPlayer(0).getIcon().move();
-                GameHandler.getPlayer(1).getIcon().move();
+            	for (int i = 0; i < GameHandler.getNumPlayers(); i++) {
+                GameHandler.getPlayer(i).getIcon().move();
+            }
             }
         }
 
@@ -593,8 +594,9 @@ public class Board extends JPanel implements Runnable {
         public void paintChildren(Graphics g)
         {
         	super.paintChildren(g);
-        	GameHandler.getPlayer(0).getIcon().draw(g, this);
-        	GameHandler.getPlayer(1).getIcon().draw(g, this);
+        	for (int i = 0; i < GameHandler.getNumPlayers(); i++) {
+                GameHandler.getPlayer(i).getIcon().draw(g, this);
+            }
         }
         
 //        public void initPoints()

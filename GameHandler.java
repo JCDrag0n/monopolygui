@@ -39,6 +39,7 @@ public class GameHandler {
 	
 	private static JFrame frame;
 	private static boolean isReady = false;
+	private static ArrayList<Space> spaces;
 
 	public GameHandler(String p1, String p2, String p3, String p4, String p1Token, String p2Token, String p3Token, String p4Token, CardSwitcher source, int num)
 	{
@@ -64,7 +65,7 @@ public class GameHandler {
 	
 	public void startGame()
 	{
-		ArrayList<Space> spaces = new ArrayList<Space>();
+		spaces = new ArrayList<Space>();
         spaces.add(new Go(921, 944));
         spaces.add(new Property("Mediterranean Avenue", "Brown", 60, 2, 4, 10, 30, 90, 160, 250, 50, 30, 824, 958));
         spaces.add(new CommunityChest(742, 958));
@@ -109,7 +110,7 @@ public class GameHandler {
         Player current = playerList.get(whoseTurn);
 		isReady = true;
         log.append("Welcome to Monopoly!\n\n");
-        log.append("\n\n" + current.getName() + "'s turn.");
+        log.append(current.getName() + "'s turn.\n");
         
 	}
 	
@@ -127,7 +128,7 @@ public class GameHandler {
 		buy.setEnabled(false);
 		endTurn.setEnabled(false);
 		roll.setEnabled(true);
-		log.append("\n\n" + current.getName() + "'s turn.");
+		log.append("\n" + current.getName() + "'s turn.");
 		if (InitBoard.getSpaces().get(location).getOwner() !=null)
 		{
 			buy.setEnabled(false);
@@ -396,6 +397,11 @@ public class GameHandler {
 	{
 		return endTurn;
 	}
+	
+	public static ArrayList<Space> getSpaces()
+	{
+		return spaces;
+	}
 	public static void receiveLog(JTextArea area)
 	{
 		log = area;
@@ -440,6 +446,11 @@ public class GameHandler {
 	public static boolean isReady()
 	{
 		return isReady;
+	}
+	
+	public static int getNumPlayers()
+	{
+		return numofPlayers;
 	}
 	
 }
