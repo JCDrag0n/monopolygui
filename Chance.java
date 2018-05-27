@@ -1,10 +1,13 @@
 import java.util.ArrayList;
 public class Chance implements Space{
 	private static String chanceString;
+	private int xCo;
+	private int yCo;
 	
-	public Chance()
+	public Chance(int x, int y)
 	{
-		
+		xCo = x;
+		yCo = y;
 	}
 	public String getName()
 	{
@@ -189,6 +192,16 @@ public class Chance implements Space{
 	public static String returnString()
 	{
 		return chanceString;
+	}
+	
+	public int getX()
+	{
+		return xCo;
+	}
+	
+	public int getY()
+	{
+		return yCo;
 	}
 	public void buy(Player p) {}
 	public void addHouse() {}

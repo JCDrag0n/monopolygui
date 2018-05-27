@@ -3,11 +3,15 @@ public class Utility implements Space{
 	private String name;
 	private Player owner;
 	private boolean isMortgaged;
+	private int xCo;
+	private int yCo;
 	public static final int mortgage = 75;
 	public static final int cost = 150;
-	public Utility(String utilName)
+	public Utility(String utilName, int x, int y)
 	{
 		name = utilName;
+		xCo = x;
+		yCo = y;
 	}
 	public String getName()
 	{
@@ -61,6 +65,16 @@ public class Utility implements Space{
 			owner.changeMoney(0 - (int) (mortgage * 1.1));
 			System.out.println(owner.getName() + "has unmortgaged " + this.getName());
 		}
+	}
+	
+	public int getX()
+	{
+		return xCo;
+	}
+	
+	public int getY()
+	{
+		return yCo;
 	}
 	
 	public void addHouse() {}

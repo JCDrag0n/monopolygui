@@ -1,8 +1,11 @@
 
 public class GoToJail implements Space {
-	public GoToJail()
+	private int xCo;
+	private int yCo;
+	public GoToJail(int x, int y)
 	{
-		
+		xCo = x;
+		yCo = y;
 	}
 	public String getName()
 	{
@@ -20,6 +23,14 @@ public class GoToJail implements Space {
 	public void payRent(Player p)
 	{
 		p.goToJail();
+	}
+	public int getX()
+	{
+		return xCo;
+	}
+	public int getY()
+	{
+		return yCo;
 	}
 	public void addHouse() {}
 	public void removeHouse() {}

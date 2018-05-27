@@ -1,5 +1,13 @@
 
 public class Go implements Space {
+	private int xCo;
+	private int yCo;
+	
+	public Go(int x, int y)
+	{
+		xCo = x;
+		yCo = y;
+	}
 	public String getColor()
 	{
 		return null;
@@ -15,6 +23,16 @@ public class Go implements Space {
 	public void act(Player p)
 	{
 		
+	}
+	
+	public int getX()
+	{
+		return xCo;
+	}
+	
+	public int getY()
+	{
+		return yCo;
 	}
 	public void buy(Player p) {}
 	public void payRent(Player p) {}

@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -49,6 +50,9 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private JRadioButton topHat, topHat2;
 	private JRadioButton wheelbarrow, wheelbarrow2;
 	
+	private JComboBox oneTokenList;
+	private JComboBox twoTokenList;
+	
 	private ButtonGroup icons, icons2;
 	
 	private JPanel sourcePane, sourcePane2;
@@ -62,6 +66,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private String pThreeName;
 	private String pFourName;
 	
+	private String[] tokens = { "Boot", "Car", "Dog", "Iron", "Thimble", "TopHat", "WheelBarrow" };
 	
 	private CardLayout switcher;
 	private CardLayout layout;
@@ -71,6 +76,11 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private Dimension buttonD = new Dimension(300, 100);
 	private Dimension labelD = new Dimension(150, 20);
 	private Dimension fieldD = new Dimension(200, 20);
+	
+	private static String pOneToken;
+	private static String pTwoToken;
+	private static String pThreeToken;
+	private static String pFourToken;
 	
 	final static String INITPANEL = "INIT";
 	final static String PLAYERPANELTWO = "TWO";
@@ -114,35 +124,43 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		icons = new ButtonGroup();
 		icons2 = new ButtonGroup();
 		
-		boot = new JRadioButton("BOOT");
-		icons.add(boot);
-		car = new JRadioButton("CAR");
-		icons.add(car);
-		dog = new JRadioButton("DOG");
-		icons.add(dog);
-		iron = new JRadioButton("IRON");
-		icons.add(iron);
-		thimble = new JRadioButton("THIMBLE");
-		icons.add(thimble);
-		topHat = new JRadioButton("TOPHAT");
-		icons.add(topHat);
-		wheelbarrow = new JRadioButton("WHEELBARROW");
-		icons.add(wheelbarrow);
+		oneTokenList = new JComboBox(tokens);
+		oneTokenList.setSelectedIndex(0);
+		oneTokenList.addActionListener(this);
 		
-		boot2 = new JRadioButton("BOOT");
-		icons2.add(boot2);
-		car2 = new JRadioButton("CAR");
-		icons2.add(car2);
-		dog2 = new JRadioButton("DOG");
-		icons2.add(dog2);
-		iron2 = new JRadioButton("IRON");
-		icons2.add(iron2);
-		thimble2 = new JRadioButton("THIMBLE");
-		icons2.add(thimble2);
-		topHat2 = new JRadioButton("TOPHAT");
-		icons2.add(topHat2);
-		wheelbarrow2 = new JRadioButton("WHEELBARROW");
-		icons2.add(wheelbarrow2);
+		twoTokenList = new JComboBox(tokens);
+		twoTokenList.setSelectedIndex(0);
+		twoTokenList.addActionListener(this);
+		
+//		boot = new JRadioButton("BOOT");
+//		icons.add(boot);
+//		car = new JRadioButton("CAR");
+//		icons.add(car);
+//		dog = new JRadioButton("DOG");
+//		icons.add(dog);
+//		iron = new JRadioButton("IRON");
+//		icons.add(iron);
+//		thimble = new JRadioButton("THIMBLE");
+//		icons.add(thimble);
+//		topHat = new JRadioButton("TOPHAT");
+//		icons.add(topHat);
+//		wheelbarrow = new JRadioButton("WHEELBARROW");
+//		icons.add(wheelbarrow);
+//		
+//		boot2 = new JRadioButton("BOOT");
+//		icons2.add(boot2);
+//		car2 = new JRadioButton("CAR");
+//		icons2.add(car2);
+//		dog2 = new JRadioButton("DOG");
+//		icons2.add(dog2);
+//		iron2 = new JRadioButton("IRON");
+//		icons2.add(iron2);
+//		thimble2 = new JRadioButton("THIMBLE");
+//		icons2.add(thimble2);
+//		topHat2 = new JRadioButton("TOPHAT");
+//		icons2.add(topHat2);
+//		wheelbarrow2 = new JRadioButton("WHEELBARROW");
+//		icons2.add(wheelbarrow2);
 		
 //		two.setVisible(true);
 //		three.setVisible(true);
@@ -156,6 +174,12 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		cancel.addActionListener(this);
 		start.addActionListener(this);
 		back.addActionListener(this);
+		
+		oneTokenList.addActionListener(this);
+		twoTokenList.addActionListener(this);
+		
+		boardLabel.setAllSizes(oneTokenList, labelD);
+		boardLabel.setAllSizes(twoTokenList, labelD);
 		
 		two.setAlignmentX(Component.CENTER_ALIGNMENT);
 		three.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -210,22 +234,28 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		
 		playerPane.add(textFieldLabel1);
 		playerPane.add(playerOneName);
+		playerPane.add(Box.createRigidArea(new Dimension(10, 10)));
+		playerPane.add(oneTokenList);
+		playerPane.add(Box.createVerticalGlue());
 		playerPane2.add(textFieldLabel2);
 		playerPane2.add(playerTwoName);
-		playerPane.add(boot);
-		playerPane.add(car);
-		playerPane.add(dog);
-		playerPane.add(iron);
-		playerPane.add(thimble);
-		playerPane.add(topHat);
-		playerPane.add(wheelbarrow);
-		playerPane2.add(boot2);
-		playerPane2.add(car2);
-		playerPane2.add(dog2);
-		playerPane2.add(iron2);
-		playerPane2.add(thimble2);
-		playerPane2.add(topHat2);
-		playerPane2.add(wheelbarrow2);
+		playerPane2.add(Box.createRigidArea(new Dimension(10, 10)));
+		playerPane2.add(twoTokenList);
+		playerPane2.add(Box.createVerticalGlue());
+//		playerPane.add(boot);
+//		playerPane.add(car);
+//		playerPane.add(dog);
+//		playerPane.add(iron);
+//		playerPane.add(thimble);
+//		playerPane.add(topHat);
+//		playerPane.add(wheelbarrow);
+//		playerPane2.add(boot2);
+//		playerPane2.add(car2);
+//		playerPane2.add(dog2);
+//		playerPane2.add(iron2);
+//		playerPane2.add(thimble2);
+//		playerPane2.add(topHat2);
+//		playerPane2.add(wheelbarrow2);
 		initPlayerPaneTwo.add(playerPane, BorderLayout.LINE_START);
 		initPlayerPaneTwo.add(Box.createRigidArea(new Dimension(10,10)), BorderLayout.CENTER);
 		initPlayerPaneTwo.add(playerPane2, BorderLayout.LINE_END);
@@ -273,54 +303,115 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	
 	public void actionPerformed(ActionEvent event) {
 
-	    source = (JButton)event.getSource();
+	    if (event.getSource() instanceof JButton)
+	    {
+	    	source = (JButton)event.getSource();
+	    	if (source == two) {
+		    	sourcePane = (JPanel)source.getParent();
+		 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
+		 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
+		        layout.show(sourceSwitcherPane, PLAYERPANELTWO);
+		    } else if (source == three){
+		    	 sourcePane = (JPanel)source.getParent();
+		 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
+		 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
+		    	 layout.show(sourceSwitcherPane, PLAYERPANELTHREE);
+		    	
+		    } else if (source == four){
+		    	 sourcePane = (JPanel)source.getParent();
+		 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
+		 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
+		    	
+		    	 layout.show(sourceSwitcherPane, PLAYERPANELFOUR); 
+		    }
+		    
+		    else if (source == cancel) {
+		    	
+		    	dispose();
+		    }
+		    
+		    else if (source == back) {
+		    	
+		    	layout.show(sourceSwitcherPane, INITPANEL);
+		    	
+		    }
+		    
+		    else if (source == start) {
 
-	    if (source == two) {
-	    	sourcePane = (JPanel)source.getParent();
-	 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
-	 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
-	        layout.show(sourceSwitcherPane, PLAYERPANELTWO);
-	    } else if (source == three){
-	    	 sourcePane = (JPanel)source.getParent();
-	 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
-	 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
-	    	 layout.show(sourceSwitcherPane, PLAYERPANELTHREE);
-	    	
-	    } else if (source == four){
-	    	 sourcePane = (JPanel)source.getParent();
-	 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
-	 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
-	    	
-	    	 layout.show(sourceSwitcherPane, PLAYERPANELFOUR); 
+		    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
+		    	pOneName = playerOneName.getText();
+		    	pTwoName = playerTwoName.getText();
+		    	pThreeName = playerThreeName.getText();
+		    	pFourName = playerFourName.getText(); 
+		    	System.out.println(pOneName);
+		    	System.out.println(pTwoName);
+		    	System.out.println(pThreeName);
+		    	System.out.println(pFourName);
+		    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, 2);
+		    	dispose();
+		    	
+		    }
 	    }
 	    
-	    else if (source == cancel) {
-	    	
-	    	dispose();
+	    if (event.getSource() instanceof JComboBox)
+	    {
+			JComboBox cb = (JComboBox)event.getSource();
+	        String tokenName = (String)cb.getSelectedItem();
+	        int n = 0;
+	        if (cb == oneTokenList)
+	        {
+	        	n = 1;
+	        }
+	        else if (cb == twoTokenList)
+	        {
+	        	n = 2;
+	        }
+	        if (tokenName.equals("Boot"))
+	        {
+	        	PlayerInitMenu.setToken("/Boot.png", n);
+	        }
+	        if (tokenName.equals("Car"))
+	        {
+	        	PlayerInitMenu.setToken("/Car.png", n);
+	        }
+	        if (tokenName.equals("Dog"))
+	        {
+	        	PlayerInitMenu.setToken("/Dog.png", n);
+	        }
+	        if (tokenName.equals("Iron"))
+	        {
+	        	PlayerInitMenu.setToken("/Iron.png", n);
+	        }
+	        if (tokenName.equals("Thimble"))
+	        {
+	        	PlayerInitMenu.setToken("/Thimble.png", n);
+	        }
+	        if (tokenName.equals("TopHat"))
+	        {
+	        	PlayerInitMenu.setToken("/TopHat.png", n);
+	        }
+	        if (tokenName.equals("WheelBarrow"))
+	        {
+	        	PlayerInitMenu.setToken("/Wheelbarrow.png", n);
+	        }
 	    }
-	    
-	    else if (source == back) {
-	    	
-	    	layout.show(sourceSwitcherPane, INITPANEL);
-	    	
-	    }
-	    
-	    else if (source == start) {
 
-	    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
-	    	pOneName = playerOneName.getText();
-	    	pTwoName = playerTwoName.getText();
-	    	pThreeName = playerThreeName.getText();
-	    	pFourName = playerFourName.getText(); 
-	    	System.out.println(pOneName);
-	    	System.out.println(pTwoName);
-	    	System.out.println(pThreeName);
-	    	System.out.println(pFourName);
-	    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, switchHandler, 2);
-	    	dispose();
-	    	
-	    }
+	    
 
 	    }
+	
+	public static void setToken(String source, int n)
+	{
+		switch (n) {
+		case 1: pOneToken = source;
+		break;
+		case 2: pTwoToken = source;
+		break;
+		case 3: pThreeToken = source;
+		break;
+		case 4: pThreeToken = source;
+		break;
+		}
+	}
 
 }

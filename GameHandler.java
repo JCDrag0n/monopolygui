@@ -35,9 +35,12 @@ public class GameHandler {
 	private static String chanceString;
 	private static String chestString;
 	
+	private static Player current;
+	
 	private static JFrame frame;
+	private static boolean isReady = false;
 
-	public GameHandler(String p1, String p2, String p3, String p4, CardSwitcher source, int num)
+	public GameHandler(String p1, String p2, String p3, String p4, String p1Token, String p2Token, String p3Token, String p4Token, CardSwitcher source, int num)
 	{
 		source.switchTo(Sandbox.GAMEPANEL);
 		ArrayList<String> nameList = new ArrayList<String>();
@@ -45,10 +48,15 @@ public class GameHandler {
 		nameList.add(p2);
 		nameList.add(p3);
 		nameList.add(p4);
+		ArrayList<String> tokenList = new ArrayList<String>();
+		tokenList.add(p1Token);
+		tokenList.add(p2Token);
+		tokenList.add(p3Token);
+		tokenList.add(p4Token);
 		playerList = new ArrayList<Player>();
 		for (int i = 0; i < num; i++)
 		{
-			playerList.add(new Player(nameList.get(i)));
+			playerList.add(new Player(nameList.get(i), tokenList.get(i)));
 		}
 		numofPlayers = num;
 		startGame();
@@ -57,49 +65,49 @@ public class GameHandler {
 	public void startGame()
 	{
 		ArrayList<Space> spaces = new ArrayList<Space>();
-        spaces.add(new Go());
-        spaces.add(new Property("Mediterranean Avenue", "Brown", 60, 2, 4, 10, 30, 90, 160, 250, 50, 30));
-        spaces.add(new CommunityChest());
-        spaces.add(new Property("Baltic Avenue", "Brown", 60, 4, 8, 20, 60, 180, 320, 450, 50, 30));
-        spaces.add(new Tax("Income Tax", 200));
-        spaces.add(new Railroad("Reading Railroad"));
-        spaces.add(new Property("Oriental Avenue", "Light Blue", 100, 6, 12, 30, 90, 270, 400, 550, 50, 50));
-        spaces.add(new Chance());
-        spaces.add(new Property("Vermont Avenue", "Light Blue", 100, 6, 12, 30, 90, 270, 400, 550, 50, 50));
-        spaces.add(new Property("Connecticut Avenue", "Light Blue", 120, 8, 16, 40, 100, 300, 450, 600, 50, 60));
-        spaces.add(new Jail());
-        spaces.add(new Property("St. Charles Place", "Pink", 140, 10, 20, 50, 150, 450, 625, 750, 100, 70));
-        spaces.add(new Utility("Electric Company"));
-        spaces.add(new Property("States Avenue", "Pink", 140, 10, 20, 50, 150, 450, 625, 750, 100, 70));
-        spaces.add(new Property("Virginia Avenue", "Pink", 60, 12, 24, 60, 180, 500, 700, 900, 100, 80));
-        spaces.add(new Railroad("Pennsylvania Railroad"));
-        spaces.add(new Property("St. James Place", "Orange", 180, 14, 28, 70, 200, 550, 750, 950, 100, 90));
-        spaces.add(new CommunityChest());
-        spaces.add(new Property("Tennessee Avenue", "Orange", 180, 14, 28, 70, 200, 550, 750, 950, 100, 90));
-        spaces.add(new Property("New York Avenue", "Orange", 200, 16, 32, 80, 220, 600, 800, 1000, 100, 100));
-        spaces.add(new FreeParking());
-        spaces.add(new Property("Kentucky Avenue", "Red", 220, 18, 36, 90, 250, 700, 875, 1050, 150, 110));
-        spaces.add(new Chance());
-        spaces.add(new Property("Indiana Avenue", "Red", 220, 18, 36, 90, 250, 700, 875, 1050, 150, 110));
-        spaces.add(new Property("Illinois Avenue", "Red", 240, 20, 40, 100, 300, 750, 925, 1100, 150, 120));
-        spaces.add(new Railroad("B. & O. RailRoad"));
-        spaces.add(new Property("Atlantic Avenue", "Yellow", 260, 22, 44, 110, 330, 800, 975, 1150, 150, 130));
-        spaces.add(new Property("Ventnor Avenue", "Yellow", 260, 22, 44, 110, 330, 800, 975, 1150, 150, 130));
-        spaces.add(new Utility("Water Works"));
-        spaces.add(new Property("Marvin Gardens", "Yellow", 280, 24, 48, 120, 360, 850, 1025, 1200, 150, 140));
-        spaces.add(new GoToJail());
-        spaces.add(new Property("Pacific Avenue", "Green", 300, 26, 52, 130, 390, 900, 1100, 1275, 200, 150));
-        spaces.add(new Property("North Carolina Avenue", "Green", 300, 26, 52, 130, 390, 900, 1100, 1275, 200, 150));
-        spaces.add(new CommunityChest());
-        spaces.add(new Property("Pennsylvania Avenue", "Green", 320, 28, 56, 150, 450, 1000, 1200, 1400, 200, 160));
-        spaces.add(new Railroad("Short Line"));
-        spaces.add(new Chance());
-        spaces.add(new Property("Park Place", "Blue", 350, 35, 70, 175, 500, 1100, 1300, 1500, 200, 175));
-        spaces.add(new Tax("Luxury Tax", 75));
-        spaces.add(new Property("Boardwalk", "Blue", 400, 50, 100, 200, 600, 1400, 1700, 2000, 200, 200));
+        spaces.add(new Go(921, 944));
+        spaces.add(new Property("Mediterranean Avenue", "Brown", 60, 2, 4, 10, 30, 90, 160, 250, 50, 30, 824, 958));
+        spaces.add(new CommunityChest(742, 958));
+        spaces.add(new Property("Baltic Avenue", "Brown", 60, 4, 8, 20, 60, 180, 320, 450, 50, 30, 660, 958));
+        spaces.add(new Tax("Income Tax", 200, 578, 958));
+        spaces.add(new Railroad("Reading Railroad", 496, 958));
+        spaces.add(new Property("Oriental Avenue", "Light Blue", 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 414, 958));
+        spaces.add(new Chance(332, 958));
+        spaces.add(new Property("Vermont Avenue", "Light Blue", 100, 6, 12, 30, 90, 270, 400, 550, 50, 50, 250, 958));
+        spaces.add(new Property("Connecticut Avenue", "Light Blue", 120, 8, 16, 40, 100, 300, 450, 600, 50, 60, 168, 958));
+        spaces.add(new Jail(39, 958));
+        spaces.add(new Property("St. Charles Place", "Pink", 140, 10, 20, 50, 150, 450, 625, 750, 100, 70, 50, 824));
+        spaces.add(new Utility("Electric Company", 50, 742));
+        spaces.add(new Property("States Avenue", "Pink", 140, 10, 20, 50, 150, 450, 625, 750, 100, 70, 50, 660));
+        spaces.add(new Property("Virginia Avenue", "Pink", 60, 12, 24, 60, 180, 500, 700, 900, 100, 80, 50, 578));
+        spaces.add(new Railroad("Pennsylvania Railroad", 50, 496));
+        spaces.add(new Property("St. James Place", "Orange", 180, 14, 28, 70, 200, 550, 750, 950, 100, 90, 50, 414));
+        spaces.add(new CommunityChest(50, 332));
+        spaces.add(new Property("Tennessee Avenue", "Orange", 180, 14, 28, 70, 200, 550, 750, 950, 100, 90, 50, 250));
+        spaces.add(new Property("New York Avenue", "Orange", 200, 16, 32, 80, 220, 600, 800, 1000, 100, 100, 50, 168));
+        spaces.add(new FreeParking(58, 58));
+        spaces.add(new Property("Kentucky Avenue", "Red", 220, 18, 36, 90, 250, 700, 875, 1050, 150, 110, 170, 53));
+        spaces.add(new Chance(252, 53));
+        spaces.add(new Property("Indiana Avenue", "Red", 220, 18, 36, 90, 250, 700, 875, 1050, 150, 110, 334, 53));
+        spaces.add(new Property("Illinois Avenue", "Red", 240, 20, 40, 100, 300, 750, 925, 1100, 150, 120, 416, 53));
+        spaces.add(new Railroad("B. & O. RailRoad", 498, 53));
+        spaces.add(new Property("Atlantic Avenue", "Yellow", 260, 22, 44, 110, 330, 800, 975, 1150, 150, 130, 580, 53));
+        spaces.add(new Property("Ventnor Avenue", "Yellow", 260, 22, 44, 110, 330, 800, 975, 1150, 150, 130, 662, 53));
+        spaces.add(new Utility("Water Works", 744, 53));
+        spaces.add(new Property("Marvin Gardens", "Yellow", 280, 24, 48, 120, 360, 850, 1025, 1200, 150, 140, 826, 53));
+        spaces.add(new GoToJail(935, 53));
+        spaces.add(new Property("Pacific Avenue", "Green", 300, 26, 52, 130, 390, 900, 1100, 1275, 200, 150, 943, 167));
+        spaces.add(new Property("North Carolina Avenue", "Green", 300, 26, 52, 130, 390, 900, 1100, 1275, 200, 150, 943, 249));
+        spaces.add(new CommunityChest(943, 331));
+        spaces.add(new Property("Pennsylvania Avenue", "Green", 320, 28, 56, 150, 450, 1000, 1200, 1400, 200, 160, 943, 413));
+        spaces.add(new Railroad("Short Line", 943, 495));
+        spaces.add(new Chance(943, 577));
+        spaces.add(new Property("Park Place", "Blue", 350, 35, 70, 175, 500, 1100, 1300, 1500, 200, 175, 943, 659));
+        spaces.add(new Tax("Luxury Tax", 75,  943, 741));
+        spaces.add(new Property("Boardwalk", "Blue", 400, 50, 100, 200, 600, 1400, 1700, 2000, 200, 200, 943, 823));
         InitBoard board = new InitBoard(spaces, playerList);
         Player current = playerList.get(whoseTurn);
-		
+		isReady = true;
         log.append("Welcome to Monopoly!\n\n");
         log.append("\n\n" + current.getName() + "'s turn.");
         
@@ -115,10 +123,10 @@ public class GameHandler {
 	
 	public static void startTurn()
 	{
+		current = playerList.get(whoseTurn);
 		buy.setEnabled(false);
 		endTurn.setEnabled(false);
 		roll.setEnabled(true);
-		Player current = playerList.get(whoseTurn);
 		log.append("\n\n" + current.getName() + "'s turn.");
 		if (InitBoard.getSpaces().get(location).getOwner() !=null)
 		{
@@ -212,7 +220,6 @@ public class GameHandler {
 	
 	public static void endTurn()
 	{
-		Player current = playerList.get(whoseTurn);
 		if (current.getMoney() < 0)
 		{
 			log.append(current.getName() + " is bankrupt!\n\n");
@@ -227,7 +234,6 @@ public class GameHandler {
 	
 	public static void buy()
 	{
-		Player current = playerList.get(whoseTurn);
 		InitBoard.getSpaces().get(location).buy(current);
 		log.append(current.getName() + " has purchased " + InitBoard.getSpaces().get(location).getName() + "\n\n");
 		buy.setEnabled(false);
@@ -237,7 +243,7 @@ public class GameHandler {
 	
 	public static void roll()
 	{
-		Player current = playerList.get(whoseTurn);
+		current = playerList.get(whoseTurn);
 		int i = (int) (Math.random() * 6) + 1;
 		int j = (int) (Math.random() * 6) + 1;
 		lastRoll = i+j;
@@ -339,8 +345,6 @@ public class GameHandler {
 			buy.setEnabled(false);
 			InitBoard.getSpaces().get(location).payRent(current);
 		}
-		//icon move code	
-		
 	}
 	
 	public static boolean getRollStatus()
@@ -426,5 +430,16 @@ public class GameHandler {
 	{
 		frame = input;
 	}
-
+	
+	public static Player getPlayer(int n)
+	{
+		return playerList.get(n);
+	}
+	
+	
+	public static boolean isReady()
+	{
+		return isReady;
+	}
+	
 }

@@ -3,10 +3,13 @@ import java.util.ArrayList;
 public class CommunityChest implements Space {
 	
 	private static String chestString;
+	private int xCo;
+	private int yCo;
 	
-	public CommunityChest()
+	public CommunityChest(int x, int y)
 	{
-		
+		xCo = x;
+		yCo = y;
 	}
 	public String getName()
 	{
@@ -115,6 +118,16 @@ public class CommunityChest implements Space {
 	
 	public static String returnString() {
 		return chestString;
+	}
+	
+	public int getX()
+	{
+		return xCo;
+	}
+	
+	public int getY()
+	{
+		return yCo;
 	}
 	public void buy(Player p) {}
 	public void addHouse() {}

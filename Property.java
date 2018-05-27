@@ -15,7 +15,9 @@ public class Property implements Space{
 	private int rent_hotel;
 	private int house_cost;
 	private int mortgage;
-	public Property(String propName, String propColor, int cost, int rn, int rm, int r1, int r2, int r3, int r4, int rh, int hc, int mt)
+	private int xCod;
+	private int yCod;
+	public Property(String propName, String propColor, int cost, int rn, int rm, int r1, int r2, int r3, int r4, int rh, int hc, int mt, int x, int y)
 	{
 		name = propName;
 		color = propColor;
@@ -29,6 +31,8 @@ public class Property implements Space{
 		rent_hotel = rh;
 		house_cost = hc;
 		mortgage = mt;
+		xCod = x;
+		yCod = y;
 	}
 	public String getName()
 	{
@@ -153,5 +157,15 @@ public class Property implements Space{
 				owner.changeMoney(rent_hotel);
 			}
 		}
+	}
+	
+	public int getX()
+	{
+		return xCod;
+	}
+	
+	public int getY()
+	{
+		return yCod;
 	}
 }

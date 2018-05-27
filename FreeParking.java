@@ -1,8 +1,12 @@
 
 public class FreeParking implements Space {
 	private static int money;
-	public FreeParking()
+	private int xCo;
+	private int yCo;
+	public FreeParking(int x, int y)
 	{
+		xCo = x;
+		yCo = y;
 		money = 100;
 	}
 	public String getName()
@@ -25,6 +29,14 @@ public class FreeParking implements Space {
 	public static void changeMoney(int in)
 	{
 		money += in;
+	}
+	public int getX()
+	{
+		return xCo;
+	}
+	public int getY()
+	{
+		return yCo;
 	}
 	public void buy(Player p) {}
 	public void addHouse() {}

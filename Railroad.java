@@ -5,9 +5,13 @@ public class Railroad implements Space {
 	private boolean isMortgaged;
 	private static final int mortgage = 100;
 	private static final int cost = 200;
-	public Railroad(String railName)
+	private int xCo;
+	private int yCo;
+	public Railroad(String railName, int x, int y)
 	{
 		name = railName;
+		xCo = x;
+		yCo = y;
 	}
 	public String getName()
 	{
@@ -71,6 +75,16 @@ public class Railroad implements Space {
 			  owner.changeMoney(0 - (int) (mortgage * 1.1));
 			  System.out.println(owner.getName() + " has unmortgaged " + this.getName());
 		  }
+	  }
+	  
+	  public int getX()
+	  {
+		  return xCo;
+	  }
+	  
+	  public int getY()
+	  {
+		  return yCo;
 	  }
 	  public void addHouse() {}
 	  public void removeHouse() {}

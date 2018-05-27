@@ -18,13 +18,15 @@ public class Player {
 	private boolean isBankrupt;
 	private ArrayList<String> properties;
 	private static JTextArea log;
+	private Icon sprite;
 	
-	public Player(String n)
+	public Player(String n, String token)
 	{
 		name = n;
 		location = 0;
 		money = 1500;
 		properties = new ArrayList<String>();
+		sprite = new Icon(token);
 	}
 	
 	public String getName()
@@ -62,6 +64,7 @@ public class Player {
 	public void moveTo(int n)
 	{
 		location = n;
+		sprite.setDestination(InitBoard.getSpaces().get(location).getX(), InitBoard.getSpaces().get(location).getY());
 		log.append(this.getName() + " moved to " + InitBoard.getSpaces().get(location).getName() + "\n\n");
 	}
 	public int roll()
@@ -112,6 +115,8 @@ public class Player {
 	{
 		return isBankrupt;
 	}
+	
+	public Icon getIcon() {return sprite;}
 	
 	public static void receiveLog(JTextArea area) { log = area; }
 	public int lastRoll() {return lastRoll;}

@@ -5,6 +5,8 @@ public interface Space {
 	String getColor();
 	Player getOwner();
 	String getName();
+	int getX();
+	int getY();
 	void addHouse();
 	void removeHouse();
 	void mortgage();

@@ -442,6 +442,8 @@ public class Sandbox {
     {
     	layeredPane = new JLayeredPane();
     	layeredPane.setPreferredSize(new Dimension(1100,1100));
+    	layeredPane.revalidate();
+    	frame.pack();
     	spritePane = new Board(20);
     	spritePane.setPreferredSize(new Dimension(1000, 1000));
     	spritePane.setBounds(10, 20, 1000, 1000);
@@ -684,6 +686,7 @@ public class Sandbox {
 //    	buttonHolder.add(manage);
 //    	buttonHolder.add(endTurn);
 //    	buttonHolder.add(menu);	
+
     }
     
     public JFrame getFrame()

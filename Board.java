@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -39,7 +40,6 @@ public class Board extends JPanel implements Runnable {
       //  private FontMetrics metrics;
 //        private House house = new House();
 //        private Flower flower = new Flower();
-        Icon player = new Icon();
        // private int px = 200;
         //private int py = 400;
         private long period;
@@ -54,6 +54,19 @@ public class Board extends JPanel implements Runnable {
     	private JLabel stc, ele, stat, virg, penn, stj, cchest2, tenn, ny, fpark;
     	private JLabel kent, chance2, ind, ill, bor, alta, vent, water, marvin, gtjail;
     	private JLabel pacific, north, cchest3, pennave, shortL, chance3, park, tax2, boardwalk, go, center;
+    	
+    	private static int medx, cchestx, baltx, tax1x, rrailx, orix, chancex, verx, conx, jailx;
+    	private static int stcx, elex, statx, virgx, pennx, stjx, cchest2x, tennx, nyx, fparkx;
+    	private static int kentx, chance2x, indx, illx, borx, altax, ventx, waterx, marvinx, gtjailx;
+    	private static int pacificx, northx, cchest3x, pennavex, shortLx, chance3x, parkx, tax2x, boardwalkx, gox;
+    	
+    	private static int medy, cchesty, balty, tax1y, rraily, oriy, chancey, very, cony, jaily;
+    	private static int stcy, eley, staty, virgy, penny, stjy, cchest2y, tenny, nyy, fparky;
+    	private static int kenty, chance2y, indy, illy, bory, altay, venty, watery, marviny, gtjaily;
+    	private static int pacificy, northy, cchest3y, pennavey, shortLy, chance3y, parky, tax2y, boardwalky, goy;
+    	
+    	private static ArrayList<Integer> xCods;
+    	private static ArrayList<Integer> yCods;
        
         public Board(long period) {
 
@@ -73,7 +86,7 @@ public class Board extends JPanel implements Runnable {
 
             setFocusable(true);
             requestFocus();     //JPanel now receives key events
-            readyForTermination();
+            //readyForTermination();
 
             // create game components
             
@@ -392,12 +405,12 @@ public class Board extends JPanel implements Runnable {
 			add(center, centerc);
 
             // listen for mouse presses
-            addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                    System.out.println("Clicked");
-                    player.setDestination(e.getX(), e.getY());
-                }
-            });
+//            addMouseListener(new MouseAdapter() {
+//                public void mousePressed(MouseEvent e) {
+//                    System.out.println("Clicked");
+//                    player.setDestination(e.getX(), e.getY());
+//                }
+//            });
 
             // set up message font
             //font = new Font("SansSerif", Font.BOLD, 24);
@@ -408,6 +421,9 @@ public class Board extends JPanel implements Runnable {
            
             property.setPreferredSize(new Dimension(320, 408));
         	property.setVisible(true);
+        	
+        	//revalidate();
+        	//initPoints();
 //            
         }   // end of 'Board()'
         
@@ -456,21 +472,21 @@ public class Board extends JPanel implements Runnable {
             running = false;
         }
 
-        private void readyForTermination() {
-            addKeyListener(new KeyAdapter() {
-                public void keyPressed(KeyEvent e) {
-
-                    // listen for escape, q, or ctrl-c
-                    int keyCode = e.getKeyCode();
-                    if ((keyCode == KeyEvent.VK_ESCAPE)
-                                    || (keyCode == KeyEvent.VK_Q)
-                                    || (keyCode == KeyEvent.VK_END)
-                                    || ((keyCode == KeyEvent.VK_C) && e.isControlDown())) {
-                        running = false;
-                    }
-                }
-            });
-        }
+//        private void readyForTermination() {
+//            addKeyListener(new KeyAdapter() {
+//                public void keyPressed(KeyEvent e) {
+//
+//                    // listen for escape, q, or ctrl-c
+//                    int keyCode = e.getKeyCode();
+//                    if ((keyCode == KeyEvent.VK_ESCAPE)
+//                                    || (keyCode == KeyEvent.VK_Q)
+//                                    || (keyCode == KeyEvent.VK_END)
+//                                    || ((keyCode == KeyEvent.VK_C) && e.isControlDown())) {
+//                        running = false;
+//                    }
+//                }
+//            });
+//        }
 
         @Override
         public void invalidate() {
@@ -482,6 +498,7 @@ public class Board extends JPanel implements Runnable {
         }
 
         private void gameRender() {
+        	if(GameHandler.isReady()) {
             synchronized (UPDATE) {
                if (getWidth() > 0 && getHeight() > 0) {
             	   
@@ -514,10 +531,12 @@ public class Board extends JPanel implements Runnable {
                 scratchBuffer = tmp;
             }
         }
+        }
 
         private void gameUpdate() {
-            if (!isPaused && !gameOver) {
-                player.move();
+            if (!isPaused && !gameOver && GameHandler.isReady()) {
+                GameHandler.getPlayer(0).getIcon().move();
+                GameHandler.getPlayer(1).getIcon().move();
             }
         }
 
@@ -574,6 +593,104 @@ public class Board extends JPanel implements Runnable {
         public void paintChildren(Graphics g)
         {
         	super.paintChildren(g);
-        	player.draw(g, this);
+        	GameHandler.getPlayer(0).getIcon().draw(g, this);
+        	GameHandler.getPlayer(1).getIcon().draw(g, this);
+        }
+        
+//        public void initPoints()
+//        {
+//        	medx = med.getX(); xCods.add(medx);
+//        	cchestx = cchest.getX(); xCods.add(cchestx);
+//        	baltx = balt.getX(); xCods.add(baltx);
+//        	tax1x = tax1.getX(); xCods.add(tax1x);
+//        	rrailx = rrail.getX(); xCods.add(rrailx);
+//        	orix = ori.getX(); xCods.add(orix);
+//        	chancex = chance.getX(); xCods.add(chancex);
+//        	verx = ver.getX(); xCods.add(verx);
+//        	conx = con.getX(); xCods.add(conx);
+//        	jailx = jail.getX(); xCods.add(jailx);
+//        	stcx = stc.getX(); xCods.add(stcx);
+//        	elex = ele.getX(); xCods.add(elex);
+//        	statx = stat.getX(); xCods.add(statx);
+//        	virgx = virg.getX(); xCods.add(virgx);
+//        	pennx = penn.getX(); xCods.add(pennx);
+//        	stjx = stj.getX(); xCods.add(stjx);
+//        	cchest2x = cchest2.getX(); xCods.add(cchest2x);
+//        	tennx = tenn.getX(); xCods.add(tennx);
+//        	nyx = ny.getX(); xCods.add(nyx);
+//        	fparkx = fpark.getX(); xCods.add(fparkx);
+//        	kentx = kent.getX(); xCods.add(kentx);
+//        	chance2x = chance2.getX(); xCods.add(chance2x);
+//        	indx = ind.getX(); xCods.add(indx);
+//        	illx = ill.getX(); xCods.add(illx);
+//        	borx = bor.getX(); xCods.add(borx);
+//        	altax = alta.getX(); xCods.add(altax);
+//        	ventx = vent.getX(); xCods.add(ventx);
+//        	waterx = water.getX(); xCods.add(waterx);
+//        	marvinx = marvin.getX(); xCods.add(marvinx);
+//        	gtjailx = gtjail.getX(); xCods.add(gtjailx);
+//        	pacificx = pacific.getX(); xCods.add(pacificx);
+//        	northx = north.getX(); xCods.add(northx);
+//        	cchest3x = cchest3.getX(); xCods.add(cchest3x);
+//        	pennavex = pennave.getX(); xCods.add(pennavex);
+//        	shortLx = shortL.getX(); xCods.add(shortLx);
+//        	chance3x = chance3.getX(); xCods.add(chance3x);
+//        	parkx = park.getX(); xCods.add(parkx);
+//        	tax2x = tax2.getX(); xCods.add(tax2x);
+//        	boardwalkx = boardwalk.getX(); xCods.add(boardwalkx);
+//        	gox = go.getX(); xCods.add(gox);
+//        	
+//        	medy = med.getY(); yCods.add(medy);
+//        	cchesty = cchest.getY(); yCods.add(cchesty);
+//        	balty = balt.getY(); yCods.add(balty);
+//        	tax1y = tax1.getY(); yCods.add(tax1y);
+//        	rraily = rrail.getY(); yCods.add(rraily);
+//        	oriy = ori.getY(); yCods.add(oriy);
+//        	chancey = chance.getY(); yCods.add(chancey);
+//        	very = ver.getY(); yCods.add(very);
+//        	cony = con.getY(); yCods.add(cony);
+//        	jaily = jail.getY(); yCods.add(jaily);
+//        	stcy = stc.getY(); yCods.add(stcy);
+//        	eley = ele.getY(); yCods.add(eley);
+//        	staty = stat.getY(); yCods.add(staty);
+//        	virgy = virg.getY(); yCods.add(virgy);
+//        	penny = penn.getY(); yCods.add(penny);
+//        	stjy = stj.getY(); yCods.add(stjy);
+//        	cchest2y = cchest2.getY(); yCods.add(cchest2y);
+//        	tenny = tenn.getY(); yCods.add(tenny);
+//        	nyy = ny.getY(); yCods.add(nyy);
+//        	fparky = fpark.getY(); yCods.add(fparky);
+//        	kenty = kent.getY(); yCods.add(kenty);
+//        	chance2y = chance2.getY(); yCods.add(chance2y);
+//        	indy = ind.getY(); yCods.add(indy);
+//        	illy = ill.getY(); yCods.add(illy);
+//        	bory = bor.getY(); yCods.add(bory);
+//        	altay = alta.getY(); yCods.add(altay);
+//        	venty = vent.getY(); yCods.add(venty);
+//        	watery = water.getY(); yCods.add(watery);
+//        	marviny = marvin.getY(); yCods.add(marviny);
+//        	gtjaily = gtjail.getY(); yCods.add(gtjaily);
+//        	pacificy = pacific.getY(); yCods.add(pacificy);
+//        	northy = north.getY(); yCods.add(northy);
+//        	cchest3y = cchest3.getY(); yCods.add(cchest3y);
+//        	pennavey = pennave.getY(); yCods.add(pennavey);
+//        	shortLy = shortL.getY(); yCods.add(shortLy);
+//        	chance3y = chance3.getY(); yCods.add(chance3y);
+//        	parky = park.getY(); yCods.add(parky);
+//        	tax2y = tax2.getY(); yCods.add(tax2y);
+//        	boardwalky = boardwalk.getY(); yCods.add(boardwalky);
+//        	goy = go.getY(); yCods.add(goy);
+//        	
+//        
+//        }
+        
+        public static int getPropertyX(int n)
+        {
+        	return xCods.get(n);
+        }
+        
+        public static int getPropertyY(int n)
+        {
+        	return yCods.get(n);
         }
     }

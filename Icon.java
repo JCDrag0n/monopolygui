@@ -15,19 +15,22 @@ public class Icon {
         //private int direction; //Position the image is facing
         private int dx;
         private int dy;
-        private String spriteSource = "/Boot.png";
-        private ImageIcon spriteIcon = new ImageIcon(this.getClass().getResource(spriteSource));
-        private Image sprite = spriteIcon.getImage();
+        private String spriteSource;
+        private ImageIcon spriteIcon;
+        private Image sprite;
         private boolean visible = true;
         //private Image playerImage;
 
-        public Icon() {
+        public Icon(String source) {
             positionX = 950;
             positionY = 950;
             dx = 4;
             dy = 4;
             destinationX = (int) positionX;
             destinationY = (int) positionY;
+            spriteSource = source;
+            spriteIcon = new ImageIcon(this.getClass().getResource(source));
+            sprite = spriteIcon.getImage();
 
             //this.playerImage=playerImage;
         }
