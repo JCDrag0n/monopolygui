@@ -44,4 +44,5 @@ public class FreeParking implements Space {
 	public void mortgage() {}
 	public void unmortgage() {}
 	public void ownerNull() {}
+	public void setOwner(Player p) {}
 }

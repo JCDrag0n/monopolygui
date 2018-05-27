@@ -47,6 +47,12 @@ public class Property implements Space{
 		owner = null;
 		owner.getProperties().remove(this.getName());
 	}
+	public void setOwner(Player p)
+	{
+		owner.getProperties().remove(this.getName());
+		owner = p;
+		p.getProperties().add(this.getName());
+	}
 	public String getColor()
 	{
 		return color;

@@ -51,7 +51,18 @@ public class Chance implements Space{
         	{
         		p.changeMoney(200);
         	}
-            InitBoard.getSpaces().get(11).payRent(p);
+        	if (InitBoard.getSpaces().get(11).getOwner() != p)
+        	{
+        		if(InitBoard.getSpaces().get(11).getOwner() == null)
+        		{
+        			GameHandler.getBuy().setEnabled(true);
+        		}
+        		else
+        		{
+        			InitBoard.getSpaces().get(11).payRent(p);
+        		}
+        	}
+            
         }
         if (ran == 3)
         {
@@ -69,6 +80,10 @@ public class Chance implements Space{
         	        int i = p.roll();
         	        p.changeMoney(0 - i * 10);
         	        InitBoard.getSpaces().get(12).getOwner().changeMoney(i * 10);
+        	    }
+        	    else if (InitBoard.getSpaces().get(12).getOwner() == null)
+        	    {
+        	    	GameHandler.getBuy().setEnabled(true);
         	    }
         	 }
         	        
@@ -159,13 +174,33 @@ public class Chance implements Space{
         	int loc = p.getPos();
             p.moveTo(5);
             if (loc > 5) {p.changeMoney(200);}
-            InitBoard.getSpaces().get(5).payRent(p);
+            if (InitBoard.getSpaces().get(5).getOwner() != p)
+        	{
+        		if(InitBoard.getSpaces().get(5).getOwner() == null)
+        		{
+        			GameHandler.getBuy().setEnabled(true);
+        		}
+        		else
+        		{
+        			InitBoard.getSpaces().get(5).payRent(p);
+        		}
+        	}
         }
         if (ran == 12)
         {
         	chanceString = "Advance to Boardwalk.";
             p.moveTo(39);
-            InitBoard.getSpaces().get(39).payRent(p);
+            if (InitBoard.getSpaces().get(39).getOwner() != p)
+        	{
+        		if(InitBoard.getSpaces().get(39).getOwner() == null)
+        		{
+        			GameHandler.getBuy().setEnabled(true);
+        		}
+        		else
+        		{
+        			InitBoard.getSpaces().get(39).payRent(p);
+        		}
+        	}
         }
         if (ran == 13)
         {
@@ -209,4 +244,5 @@ public class Chance implements Space{
 	public void mortgage() {}
 	public void unmortgage() {}
 	public void ownerNull() {}
+	public void setOwner(Player p) {}
 }

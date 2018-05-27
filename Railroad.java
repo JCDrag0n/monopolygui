@@ -25,6 +25,14 @@ public class Railroad implements Space {
 	{
 		return owner;
 	}
+	
+	public void setOwner(Player p)
+	{
+		owner.getProperties().remove(this.getName());
+		owner = p;
+		p.getProperties().add(this.getName());
+	}
+	
 	public void buy(Player p)
 	{
 		owner = p;

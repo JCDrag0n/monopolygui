@@ -484,9 +484,9 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    	}
 		    	
 		    	if (numofPlayers == 4) {
-		    		pOneName = p3playerOneName.getText();
-			    	pTwoName = p3playerTwoName.getText();
-			    	pThreeName = p3playerThreeName.getText();
+		    		pOneName = p4playerOneName.getText();
+			    	pTwoName = p4playerTwoName.getText();
+			    	pThreeName = p4playerThreeName.getText();
 			    	pFourName = playerFourName.getText(); 
 		    	}
 		    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, numofPlayers);

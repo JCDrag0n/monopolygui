@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -34,6 +36,7 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	
 	private Dimension buttonD = new Dimension(130, 50);
 	private String property;
+	private String mProperty;
 	
 	public PropertyList(JDialog source)
 	{
@@ -45,6 +48,45 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(this);
 		list.setFont(FontLoader.enableFont(16f));
+		list.setCellRenderer(new DefaultListCellRenderer() {
+			public Component getListCellRendererComponent (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				mProperty = value.toString();
+			 	int spaceIndex = 0;
+	      		for (int i = 0; i < 40; i++)
+	      		{
+	      			if (GameHandler.getSpaces().get(i).getName().equals(mProperty))
+	      			{
+	      				spaceIndex = i;
+	      			}
+	      		}
+	      		if (GameHandler.getSpaces().get(spaceIndex) instanceof Railroad)
+            	{
+	      			Railroad temp = (Railroad)GameHandler.getSpaces().get(spaceIndex);
+	      			if(temp.getMortgageState())
+            		{
+	      				setBackground(Color.PINK);
+            		}
+            	}
+	      		if (GameHandler.getSpaces().get(spaceIndex) instanceof Utility)
+            	{
+	      			Utility temp = (Utility)GameHandler.getSpaces().get(spaceIndex);
+	      			if(temp.getMortgageState())
+            		{
+	      				setBackground(Color.PINK);
+            		}
+            	}
+	      		if (GameHandler.getSpaces().get(spaceIndex) instanceof Property)
+            	{
+	      			Property temp = (Property)GameHandler.getSpaces().get(spaceIndex);
+	      			if(temp.getMortgageState())
+            		{
+	      				setBackground(Color.PINK);
+            		}
+            	}
+				return this;
+			}
+		});
 		JScrollPane listScrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		listScrollPane.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10,10,10,10), BorderFactory.createTitledBorder("LIST OF PROPERTIES")));
 		
@@ -94,9 +136,9 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	
 	public void updateList()
 	{
+		listModel.removeAllElements();
 		for (int i = 0; i < GameHandler.getPlayer().getProperties().size(); i++)
-		{
-			listModel.removeAllElements();
+		{	
 			listModel.addElement(GameHandler.getPlayer().getProperties().get(i));
 		}
 	}

@@ -12,4 +12,5 @@ public interface Space {
 	void mortgage();
 	void unmortgage();
 	void ownerNull();
+	void setOwner(Player p);
 }

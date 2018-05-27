@@ -368,6 +368,11 @@ public class GameHandler {
 		}
 	}
 	
+	public static ArrayList<Player> getPlayerList()
+	{
+		return playerList;
+	}
+	
 	public static String getChance()
 	{
 		return chanceString;

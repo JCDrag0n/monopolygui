@@ -347,19 +347,32 @@ public class boardLabel {
 		name.setPreferredSize(c);
 	}
 	
-	public static void setMouseListener(JLabel name, JLabel reset, JLabel app, String file)
+	public static void setMouseListener(JLabel name, JLabel reset, JLabel app, JLabel hCount, int space, String file)
 	{
 		name.addMouseListener(new MouseAdapter() {
-
+			String temp;
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
             	reset.setIcon(app.getIcon());
                 app.setIcon(boardLabel.imgConversion(file));
+                temp = hCount.getText();
+                if (space != -1)
+                {
+                	if (((Property)GameHandler.getSpaces().get(space)).getHouses() == 5)
+                	{
+                		hCount.setText("HOUSES: 0 HOTEL: 1");
+                	}
+                	hCount.setText("HOUSES: " + ((Property)GameHandler.getSpaces().get(space)).getHouses() + " HOTELS: 0");
+                }
+                else {
+                	hCount.setText("HOUSES: 0 HOTEL: 0");
+                }
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 app.setIcon(reset.getIcon());
+                hCount.setText(temp);
             }
         });
 	}

@@ -9,15 +9,18 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
@@ -26,6 +29,7 @@ public class ManageDialog extends JDialog {
 	private String money = "100";
 	private Dimension buttonD = new Dimension(300, 100);
 	private Window frame;
+	private String player = null;
 	
 	public ManageDialog(Window owner, String title, Dialog.ModalityType modalityType)
 	{
@@ -69,14 +73,64 @@ public class ManageDialog extends JDialog {
 		 JButton trade = new JButton("TRADE");
 		 trade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			 JDialog tradeDialog = new JDialog(frame, "TRADE",
-	                    ModalityType.APPLICATION_MODAL);
-			 TradeList list = new TradeList(tradeDialog);
-			 tradeDialog.add(list);
-			 tradeDialog.pack();
-			 list.updateList();
-			 tradeDialog.setLocationRelativeTo(frame);
-			 tradeDialog.setVisible(true);
+				if(GameHandler.getNumPlayers() > 2)
+				{
+				JDialog tradeWho = new JDialog(frame, "TRADE OPTIONS", ModalityType.APPLICATION_MODAL);
+				JPanel cardPane = new JPanel();
+				JTextField otherPlayer = new JTextField(20);
+				otherPlayer.addActionListener(new ActionListener() {
+					
+					public void actionPerformed(ActionEvent e)
+					{
+						String text = otherPlayer.getText();
+						System.out.println(text);
+						for(int i = 0; i < GameHandler.getPlayerList().size(); i++)
+						{
+				
+							if(text.equals(GameHandler.getPlayerList().get(i).getName()))
+							{
+								player = text;
+								tradeWho.dispose();
+								JDialog tradeDialog = new JDialog(frame, "TRADE",
+					                    ModalityType.APPLICATION_MODAL);
+								TradeList list = new TradeList(tradeDialog);
+								tradeDialog.add(list);
+								tradeDialog.pack();
+								list.updateList(player);
+								tradeDialog.setLocationRelativeTo(frame);
+							 	tradeDialog.setVisible(true);
+							}
+						}
+						if (player == null)
+						{
+							JOptionPane.showMessageDialog(frame, "PLAYER NOT FOUND.", "ERROR", JOptionPane.WARNING_MESSAGE);
+						}
+					}
+					
+					});
+				JButton back = new JButton(new AbstractAction("BACK") {
+					public void actionPerformed(ActionEvent e) {
+						tradeWho.dispose();
+					}
+				});
+				cardPane.add(otherPlayer);
+				cardPane.add(back);
+				tradeWho.setContentPane(cardPane);
+				tradeWho.pack();
+				tradeWho.setLocationRelativeTo(frame);
+				tradeWho.setVisible(true);
+				}
+				else
+				{
+					JDialog tradeDialog = new JDialog(frame, "TRADE",
+		                    ModalityType.APPLICATION_MODAL);
+					TradeList list = new TradeList(tradeDialog);
+					tradeDialog.add(list);
+					tradeDialog.pack();
+					list.updateList();
+					tradeDialog.setLocationRelativeTo(frame);
+				 	tradeDialog.setVisible(true);
+				}
 			}
 		 });
 		 boardLabel.setAllSizes(trade, buttonD);
