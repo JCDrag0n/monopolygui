@@ -52,8 +52,7 @@ public class ManageDialog extends JDialog {
 		 wallet.setIcon(result);
 		 wallet.setHorizontalTextPosition(JLabel.LEADING);
 		 
-		 JTextArea properties = new JTextArea("Name: " + GameHandler.getPlayer().getName() + "\n" + "Token: Car\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\nProperties Owned:\n"
-		 		+ "\nMediterranean Ave\n");
+		 JTextArea properties = new JTextArea("Name: " + GameHandler.getPlayer().getName() + "\n" + "Token: Car\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 		 properties.setFont(FontLoader.enableFont(14f));
 		 properties.setEditable(false);
 		 

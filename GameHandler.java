@@ -1,6 +1,12 @@
+import java.awt.Dialog.ModalityType;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class GameHandler {
@@ -24,9 +30,12 @@ public class GameHandler {
 	private static JButton endTurn;
 	private static JButton chance;
 	private static JButton community;
+	private static JButton useCard;
 	
 	private static String chanceString;
 	private static String chestString;
+	
+	private static JFrame frame;
 
 	public GameHandler(String p1, String p2, String p3, String p4, CardSwitcher source, int num)
 	{
@@ -129,7 +138,70 @@ public class GameHandler {
 				current.changeMoney(0 - 50);
 			}
 			else {
+				JDialog jailDialog = new JDialog(frame, "JAIL OPTIONS", ModalityType.APPLICATION_MODAL);
+				JPanel cardPane = new JPanel();
+				JButton pay = new JButton(new AbstractAction("PAY FINE") {
+
+		            @Override
+		            public void actionPerformed(ActionEvent evt) {
+		            		current.setInJail(false);
+		            		current.resetJailTurns();
+		            		current.changeMoney(0 - 50);
+		            		log.append(current.getName() + " paid the fine. \n\n");
+		            		jailDialog.dispose();
+		            		roll.setEnabled(true);
+		            		endTurn.setEnabled(false);
+		            		buy.setEnabled(false);
+		            }});
 				
+				JButton rollB = new JButton(new AbstractAction("ROLL") {
+
+		            @Override
+		            public void actionPerformed(ActionEvent evt) {
+		            	
+		            	int i = (int) (Math.random() * 6) + 1;
+		        		int j = (int) (Math.random() * 6) + 1;
+		        		lastRoll = i+j;
+		        		if(i == j)
+		        		{
+		        			current.setInJail(false);
+		            		current.resetJailTurns();
+		            		log.append(current.getName() + " rolled doubles. Lucky. \n\n");
+		            		location = current.getPos() + i + j;
+		            		jailDialog.dispose();
+		            		buy.setEnabled(true);
+		            		roll.setEnabled(false);
+		            		endTurn.setEnabled(true);	
+		            		current.moveTo(location);		
+		        		}
+		   
+
+		            }});
+				useCard = new JButton(new AbstractAction("GET OUT OF JAIL FREE") {
+
+		            @Override
+		            public void actionPerformed(ActionEvent evt) {
+		            	current.setInJail(false);
+	            		current.resetJailTurns();
+	            		current.setOutCards(current.getOutCards() - 1);
+	            		log.append(current.getName() + " used a get out of jail free card. Cheater. \n\n");
+	            		jailDialog.dispose();
+	            		roll.setEnabled(true);
+	            		endTurn.setEnabled(false);
+	            		buy.setEnabled(false);
+
+		            }});
+				if (current.getOutCards() == 0)
+				{
+					useCard.setEnabled(false);
+				}
+				cardPane.add(pay);
+				cardPane.add(rollB);
+				cardPane.add(useCard);
+				jailDialog.setContentPane(cardPane);
+				jailDialog.pack();
+	            jailDialog.setLocationRelativeTo(frame);
+				jailDialog.setVisible(true);
 			}
 		}
 		else {
@@ -177,31 +249,30 @@ public class GameHandler {
 			location = (location + i + j) % 40;
 			current.changeMoney(200);
 		}
-		
-		if (doubleCount == 0)
-		{
-			roll.setEnabled(false);
-			buy.setEnabled(true);
-			endTurn.setEnabled(true);
-		}
-		else if (doubleCount == 3)
-		{
-			current.goToJail();
-			roll.setEnabled(false);
-			endTurn();
-			//gotoJail code
-		}
-		else {
-			roll.setEnabled(true);
-			buy.setEnabled(true);
-		}
 		if (i == j)
 		{
 			doubleCount++;
 			roll.setEnabled(true);
 			endTurn.setEnabled(false);
+			
+			if (doubleCount == 3)
+			{
+				current.goToJail();
+				roll.setEnabled(false);
+				endTurn();
+			}
+			else {
+				roll.setEnabled(true);
+				buy.setEnabled(true);
+			}
 		}
-		else 
+		else if (doubleCount == 0)
+		{
+			roll.setEnabled(false);
+			buy.setEnabled(true);
+			endTurn.setEnabled(true);
+		}
+		else
 		{
 			endTurn.setEnabled(true);
 			roll.setEnabled(false);
@@ -230,7 +301,7 @@ public class GameHandler {
 			}
 			chance.doClick();
 		}
-		if ((InitBoard.getSpaces().get(location) instanceof CommunityChest))
+		else if ((InitBoard.getSpaces().get(location) instanceof CommunityChest))
 		{
 			if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
 			{
@@ -251,7 +322,7 @@ public class GameHandler {
 			}
 			community.doClick();
 		}
-		if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
+		else if (!(InitBoard.getSpaces().get(location) instanceof Property) && !(InitBoard.getSpaces().get(location) instanceof Railroad) && !(InitBoard.getSpaces().get(location) instanceof Utility) )
 		{
 			buy.setEnabled(false);
 			InitBoard.getSpaces().get(location).payRent(current);
@@ -302,6 +373,25 @@ public class GameHandler {
 		return chestString;
 	}
 	
+	public static int getLastRoll()
+	{
+		return lastRoll;
+	}
+	
+	public static JButton getBuy()
+	{
+		return buy;
+	}
+	
+	public static JButton getRoll()
+	{
+		return roll;
+	}
+	
+	public static JButton getEndTurn()
+	{
+		return endTurn;
+	}
 	public static void receiveLog(JTextArea area)
 	{
 		log = area;
@@ -332,5 +422,9 @@ public class GameHandler {
 		community = chestB;
 	}
 	
+	public static void receiveFrame(JFrame input)
+	{
+		frame = input;
+	}
 
 }

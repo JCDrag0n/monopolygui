@@ -126,5 +126,9 @@ public class Player {
 	public int getHouses() {return houses;}
 	public int getHotels() {return hotels;}
 	public boolean getJailStatus() {return isInJail;}
+	public void setInJail(boolean set) { isInJail = set; }
+	public void resetJailTurns() { jailTurns = 0; }
 	public int getJailTurns() {return jailTurns;}
+	public int getOutCards() {return numGetOutCards;}
+	public void setOutCards(int set) { numGetOutCards = set; }
 }

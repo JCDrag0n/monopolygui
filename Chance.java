@@ -26,43 +26,60 @@ public class Chance implements Space{
 			chanceString = "Advance to Go!";
             p.moveTo(0);
             InitBoard.getSpaces().get(0).payRent(p);
+            p.changeMoney(200);
         }
         if (ran == 1)
         {
         	chanceString = "Advance to Illinois Ave.";
+        	int loc = p.getPos();
             p.moveTo(24);
+            if (loc > 24)
+            {
+            	p.changeMoney(200);
+            }
             InitBoard.getSpaces().get(24).payRent(p);
         }
         if (ran == 2)
         {
         	chanceString = "Advance to St. Charles Place.";
-            p.moveTo(11); 
+        	int loc = p.getPos();
+        	 p.moveTo(11); 
+        	if (loc > 11)
+        	{
+        		p.changeMoney(200);
+        	}
             InitBoard.getSpaces().get(11).payRent(p);
         }
         if (ran == 3)
         {
         	chanceString = "Advance to the nearest Utility. If unowned, you may buy it from the Bank. If owned, throw dice and pay owner a total ten times the amount thrown.";
-            if (p.getPos() < 12 || p.getPos() > 28)
-            {
-            	p.moveTo(12);
-            	if (InitBoard.getSpaces().get(12).getOwner() != null && InitBoard.getSpaces().get(12).getOwner() != p)
-            	{
-            		int i = p.roll();
-            		p.changeMoney(0 - i * 10);
-            		InitBoard.getSpaces().get(12).getOwner().changeMoney(i * 10);
-            	}
-            }
-            else
-            {
-            	p.moveTo(28);
-            	if (InitBoard.getSpaces().get(28).getOwner() != null && InitBoard.getSpaces().get(28).getOwner() != p)
-            	{
-            		int i = p.roll();
-            		p.changeMoney(0 - i * 10);
-            		InitBoard.getSpaces().get(28).getOwner().changeMoney(i * 10);
-            	}
-            }
-            	// go to  closest utility,  if owned, pay ten  times dice roll
+        	int loc = p.getPos();
+        	if (p.getPos() < 12 || p.getPos() > 28)
+        	{
+        		p.moveTo(12);
+        		if (loc > 28)
+        		{
+        			p.changeMoney(200);
+        		}
+        	    if (InitBoard.getSpaces().get(12).getOwner() != null && InitBoard.getSpaces().get(12).getOwner() != p)
+        	    {
+        	        int i = p.roll();
+        	        p.changeMoney(0 - i * 10);
+        	        InitBoard.getSpaces().get(12).getOwner().changeMoney(i * 10);
+        	    }
+        	 }
+        	        
+        	 else
+        	 {
+        	     p.moveTo(28);
+        	     if (InitBoard.getSpaces().get(28).getOwner() != null && InitBoard.getSpaces().get(28).getOwner() != p)
+        	     {
+        	         int i = p.roll();
+        	         p.changeMoney(0 - i * 10);
+        	         InitBoard.getSpaces().get(28).getOwner().changeMoney(i * 10);
+        	      }
+        	  }
+        	             	// go to  closest utility,  if owned, pay ten  times dice roll
         }
         if (ran == 4)
         {
@@ -94,6 +111,7 @@ public class Chance implements Space{
             else 
             {
             	p.moveTo(5);
+            	p.changeMoney(200);
             	InitBoard.getSpaces().get(5).payRent(p);
             	InitBoard.getSpaces().get(5).payRent(p);
             }
@@ -117,6 +135,7 @@ public class Chance implements Space{
         {
         	chanceString = "Go To Jail -- Go Directly To Jail -- Do not pass Go, do not collect $200.";
             p.goToJail();
+            GameHandler.endTurn();
         }
         if (ran == 9)
         {
@@ -134,13 +153,16 @@ public class Chance implements Space{
         if (ran == 11)
         {
         	chanceString = "Take a trip to Reading Railroad -- If you pass Go, collect $200.";
-        	if (p.getPos() > 5) {p.changeMoney(200);}
+        	int loc = p.getPos();
             p.moveTo(5);
+            if (loc > 5) {p.changeMoney(200);}
+            InitBoard.getSpaces().get(5).payRent(p);
         }
         if (ran == 12)
         {
         	chanceString = "Advance to Boardwalk.";
             p.moveTo(39);
+            InitBoard.getSpaces().get(39).payRent(p);
         }
         if (ran == 13)
         {
