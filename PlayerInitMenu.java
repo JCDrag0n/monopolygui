@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,10 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -80,8 +77,6 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private String pTwoName;
 	private String pThreeName;
 	private String pFourName;
-	
-	private int boxes = 0;
 	
 	private String[] tokens = { "", "Boot", "Car", "Dog", "Iron", "Thimble", "TopHat", "WheelBarrow" };
 	
@@ -390,39 +385,12 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		initPlayerPaneFour.add(buttonUI4, BorderLayout.PAGE_END);
 		initPlayerPaneFour.setBorder(new EmptyBorder(10,10,10,10));
 
-		
-		//boardLabel.setAllSizes(initPlayerPaneTwo, new Dimension(500, 200));
-//		
-//		initPlayerPaneThree.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneThree.add(two);
-//		initPlayerPaneThree.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneThree.add(three);
-//		initPlayerPaneThree.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneThree.add(four);
-//		initPlayerPaneThree.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneThree.add(cancel);
-//		initPlayerPaneThree.setBorder(new EmptyBorder(10,10,10,10));
-//		
-//		initPlayerPaneFour.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneFour.add(two);
-//		initPlayerPaneFour.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneFour.add(three);
-//		initPlayerPaneFour.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneFour.add(four);
-//		initPlayerPaneFour.add(Box.createRigidArea(new Dimension(10, 10)));
-//		initPlayerPaneFour.add(cancel);
-//		initPlayerPaneFour.setBorder(new EmptyBorder(10,10,10,10));
-		
-		
 		switcherPane.add(initAmountPane, INITPANEL);
     	switcherPane.add(initPlayerPaneTwo, PLAYERPANELTWO);
     	switcherPane.add(initPlayerPaneThree, PLAYERPANELTHREE);
     	switcherPane.add(initPlayerPaneFour, PLAYERPANELFOUR);
-    	//switcherPane.add(initPlayerPaneThree, PLAYERPANELTHREE);
-    	//switcherPane.add(initPlayerPaneFour, PLAYERPANELFOUR);
     	
     	setContentPane(switcherPane);
-    	//pack();
 		
 		switcher = (CardLayout)(switcherPane.getLayout());
 		start.setEnabled(false);
@@ -475,7 +443,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    }
 		    
 		    else if (source == start || source == p3start || source == p4start) {
-		    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
+
 		    	if (numofPlayers == 2) {
 		    		if (playerOneName.getText() == (null) || playerTwoName.getText() == (null) || pOneToken == (null) || pTwoToken == (null) || playerOneName.getText().equals("") || playerTwoName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals(""))
 		    		{

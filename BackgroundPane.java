@@ -20,12 +20,6 @@ public class BackgroundPane extends JPanel {
 	    } catch (IOException ioe) {
 	        ioe.printStackTrace();
 	    }
-//		background = new StretchIcon(backgroundimg, true);
-//		backgroundLabel = new JLabel(background);
-//		backgroundLabel.setVisible(true);
-//		backgroundLabel.setPreferredSize(new Dimension(1920, 1080));
-//		frame.setContentPane(backgroundLabel);
-//		frame.setLayout(new BorderLayout());
 	}
 	
 	public void paintComponent(Graphics g) {

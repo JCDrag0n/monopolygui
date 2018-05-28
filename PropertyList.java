@@ -147,7 +147,6 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	  public void valueChanged(ListSelectionEvent e) {
 	        if (e.getValueIsAdjusting() == false) {
 	            if (list.getSelectedIndex() == -1) {
-	            //No selection, disable fire button.
 	                mortgage.setEnabled(false);
 	                unmortgage.setEnabled(false);
 	                addHouses.setEnabled(false);

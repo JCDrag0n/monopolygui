@@ -11,8 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class GameHandler {
-	
-	private CardSwitcher source;
 	private static ArrayList<Player> playerList;
 	private static JTextArea log;
 	private static boolean alreadyRolled = false;
@@ -21,8 +19,6 @@ public class GameHandler {
 	
 	private static int doubleCount;
 	
-	private static boolean isinJail;
-	private static int jailTurns;
 	private static int lastRoll;
 	private static int location;
 	
@@ -134,7 +130,6 @@ public class GameHandler {
 			endTurn.setEnabled(false);
 			roll.setEnabled(false);
 			JOptionPane.showMessageDialog(frame, "Congrats " + current.getName() + " YOU WIN!!!!");
-			//log.append("\n\n\n\n\n Congrats " + current.getName() + "! YOU WIN!!!!");
 			
 		}
 		else {

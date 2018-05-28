@@ -3,7 +3,6 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Window;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,13 +14,11 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 public class ManageDialog extends JDialog {
@@ -133,7 +130,6 @@ public class ManageDialog extends JDialog {
 			}
 		 });
 		 boardLabel.setAllSizes(trade, buttonD);
-		 //trade.setBorder(new EmptyBorder(10, 10, 20, 20));
 		 JButton manProperties = new JButton("PROPERTIES");
 		 manProperties.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
@@ -157,9 +153,6 @@ public class ManageDialog extends JDialog {
 					dispose();
 				}
 		 });
-		 //exit.setBorder(new EmptyBorder(10, 10, 20, 20));
-		 
-		 //uiHolder.add(wallet);
 		 uiHolder.add(Box.createRigidArea(new Dimension(10, 10)));
 		 uiHolder.add(trade);
 		 uiHolder.add(Box.createRigidArea(new Dimension(10, 10)));
@@ -173,12 +166,6 @@ public class ManageDialog extends JDialog {
 		 
 		 setContentPane(managePane);
 		 pack();
-		 
-//		 JList properties = new JList();
-//		 properties.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		 
-//		 JScrollPane propertyScroller = new JScrollPane(properties);
-//		 propertyScroller.setPreferredSize(new Dimension(500, 200));
 		 
 		 
 	}

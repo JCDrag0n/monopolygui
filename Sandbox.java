@@ -2,18 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.awt.CardLayout;
 import java.io.File;
@@ -21,12 +17,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -41,27 +33,20 @@ public class Sandbox {
 	private JFrame frame;
 	
 	//private JLabel board;
-	private JLabel property;
 	private JLabel header;
 
 	private JPanel uiHolder;
 	private JPanel imgHolder;
 	private JPanel buttonHolder;
-	private JPanel boardPane;
 	private JPanel menuPop;
 	private JPanel chancePop;
 	private JPanel switchPane;
 	private BackgroundPane gamePane;
-	
-	private Image boardImage;
-	private Image propertyImage;
-	private Image backgroundimg;
-	
+
 	private JTextArea log;
 	private JScrollPane scrollPane;
 	
 	private JButton buy;
-	private JButton trade;
 	private JButton roll;
 	private JButton menu;
 	private JButton endTurn;
@@ -74,12 +59,7 @@ public class Sandbox {
 	private JLayeredPane layeredPane;
 	
 	private Board spritePane;
-	
-//	private JLabel currentIcon, med, cchest, balt, tax1, rrail, ori, chance, ver, con, jail; 
-//	private JLabel stc, ele, stat, virg, penn, stj, cchest2, tenn, ny, fpark;
-//	private JLabel kent, chance2, ind, ill, bor, alta, vent, water, marvin, gtjail;
-//	private JLabel pacific, north, cchest3, pennave, shortL, chance3, park, tax2, boardwalk, go, center;
-//	
+
 	private CardLayout switcher;
 	
 	protected static final Color GP_COLOR = new Color(0, 0, 0, 30);
@@ -98,9 +78,6 @@ public class Sandbox {
     	Toolkit toolkit =  Toolkit.getDefaultToolkit ();
     	dim = toolkit.getScreenSize();
     	frame.setSize(dim.width,dim.height);
-//    	frame.setExtendedState(frame.getExtendedState() | Frame.MAXIMIZED_BOTH); 
-//    	frame.setUndecorated(true);
-//    	size = frame.getBounds().getSize();
     	MainMenuPane menuPane = new MainMenuPane(frame, dim);
     	menuPop = new JPanel() {
             protected void paintComponent(Graphics g) {
@@ -111,8 +88,6 @@ public class Sandbox {
           };
         menuPop.setOpaque(false);
         menuPop.setVisible(false);
-    	//frame.setContentPane(new BackgroundPane("/Wood1.jpg"));
-    	//frame.getContentPane().setLayout(new BorderLayout());
         gamePane = new BackgroundPane("/Wood1.jpg");
         gamePane.setLayout(new BorderLayout());
         boardLabel.setAllSizes(gamePane, dim);
@@ -122,9 +97,6 @@ public class Sandbox {
     	menuPane.addElements();
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setGlassPane(menuPop);
-    	//frame.setPreferredSize(new Dimension(1920,1080));
-    	//frame.setMaximumSize(new Dimension(1920,1080));
-    	//frame.setMinimumSize(new Dimension(1920,1080));
     	frame.add(switchPane);
         frame.setVisible(true);
         switcher = (CardLayout)(switchPane.getLayout());
@@ -151,11 +123,9 @@ public class Sandbox {
           };
         chancePop.setOpaque(false);
         chancePop.setVisible(false);
-        
-        //layeredPane.add(boardPane, Integer.valueOf(1), 0);
+       
     	layeredPane.add(spritePane, Integer.valueOf(1), 1);
     	layeredPane.add(chancePop, Integer.valueOf(0));
-//    	layeredPane.setVisible(true);
     	gamePane.add(layeredPane, BorderLayout.LINE_START);
     }
     
@@ -168,7 +138,6 @@ public class Sandbox {
     	uiHolder.setVisible(true);
     	
     	gamePane.add(uiHolder, BorderLayout.LINE_END);
-    	//frame.pack();
     }
     
     public void imageUI()
@@ -182,10 +151,7 @@ public class Sandbox {
     
     public void addProperty()
     {
-    	//property.setPreferredSize(new Dimension(320, 408));
-    	//property.setVisible(true);
     	imgHolder.add(spritePane.getProperty());
-    	//frame.pack();
     }
     
     public void addLog()
@@ -199,29 +165,17 @@ public class Sandbox {
     	scrollPane.setPreferredSize(new Dimension(330,420));
     	scrollPane.setColumnHeaderView(header);
     	imgHolder.add(scrollPane);
-    	//frame.pack();
     }
     
     public void buttonUI()
     {
-//    	GridLayout buttonLayout = new GridLayout(0,2, 5, 5);
-//    	buttonHolder = new JPanel(buttonLayout);
-//    	buttonHolder.setVisible(true);
-//    	buttonHolder.setPreferredSize(new Dimension(900,400));
- 
-//    	buyHolder = new JPanel(new BorderLayout());
-//    	buyHolder.setVisible(true);
-//    	buyHolder.setPreferredSize(new Dimension(300, 100));
     	Border empty = BorderFactory.createEmptyBorder(80,80,80,80);
     	buttonHolder = new JPanel(new GridBagLayout());
     	buttonHolder.setVisible(true);
     	buttonHolder.setBorder(empty);
     	buttonHolder.setOpaque(false);
     	uiHolder.add(buttonHolder);
-//    	user = new JPanel(buttonLayout);
-//    	end = new JPanel(new BorderLayout());
-//    	buttonHolder.add(user, BorderLayout.LINE_START);
-//    	buttonHolder.add(end, BorderLayout.LINE_END);
+
     }
     
     public void addButtons()
@@ -304,17 +258,6 @@ public class Sandbox {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-//               chancePop.setVisible(true);
-//
-//               ChanceDialog chanceDialog = new ChanceDialog(frame, "CHANCE CARD",
-//                     ModalityType.APPLICATION_MODAL, "<html>ADVANCE TO ST.CHARLES PLACE.<br> IF YOU PASS GO, <br> COLLECT $200</html>");
-//               chanceDialog.initUI();
-//               chanceDialog.pack();
-//               chanceDialog.setLocationRelativeTo(boardPane);
-//               chanceDialog.setVisible(true);
-//               
-//               chancePop.setVisible(false);
-            	
             	menuPop.setVisible(true);
             	ManageDialog manageDialog = new ManageDialog(frame, "MANAGE INVENTORY",
                         ModalityType.APPLICATION_MODAL);
@@ -373,14 +316,6 @@ public class Sandbox {
     	buttonHolder.add(roll, rollc);
     	buttonHolder.add(endTurn, endTurnC);
     	buttonHolder.add(menu, menuc);
-    	
-    	
-//    	buyHolder.add(buy, BorderLayout.CENTER);
-//    	buttonHolder.add(roll);
-//    	buttonHolder.add(manage);
-//    	buttonHolder.add(endTurn);
-//    	buttonHolder.add(menu);	
-
     }
     
     public JFrame getFrame()

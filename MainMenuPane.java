@@ -16,7 +16,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class MainMenuPane extends JPanel implements ActionListener{
 	
@@ -29,13 +28,10 @@ public class MainMenuPane extends JPanel implements ActionListener{
 	private JLabel logo;
 	
 	private Dimension buttonD = new Dimension(500, 200);
-	
-	private Sandbox pView = new Sandbox();
-	
+		
 	private JButton source;
 	private JPanel sourcePane;
 	private JPanel switcherPane;
-	private CardLayout switcher;
 	private CardLayout layout;
 	
 	private JFrame frame;
@@ -98,7 +94,6 @@ public class MainMenuPane extends JPanel implements ActionListener{
 	    source = (JButton)event.getSource();
 	    sourcePane = (JPanel)source.getParent();
 	    switcherPane = (JPanel)sourcePane.getParent();
-	   // JFrame frame = (JFrame)switcherPane.getParent();
 	    layout = (CardLayout)switcherPane.getLayout();
 
 	    if (source == play) {
@@ -109,8 +104,7 @@ public class MainMenuPane extends JPanel implements ActionListener{
         	playerDialog.pack();
         	playerDialog.setLocationRelativeTo(switcherPane);
             playerDialog.setVisible(true);
-	    	
-	        //layout.show(switcherPane, Sandbox.GAMEPANEL);;
+
 	    } else if (source == settings){
 	    	
 	    } else if (source == exit){

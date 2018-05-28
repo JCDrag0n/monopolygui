@@ -1,4 +1,3 @@
-import java.util.Scanner;
 public class Utility implements Space{
 	private String name;
 	private Player owner;

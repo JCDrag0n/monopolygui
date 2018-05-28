@@ -13,7 +13,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -234,7 +233,6 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 		 mainArea.setEditable(false);
 		 
 		 JScrollPane mainAreaScroller = new JScrollPane(mainArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		 //mainAreaScroller.setPreferredSize(new Dimension(400,200));
 		 mainAreaScroller.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10,10,10,10), BorderFactory.createTitledBorder("ITEMS GIVEN:")));
 		 
 		 secondArea = new JTextArea("");
@@ -242,12 +240,7 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 		 secondArea.setEditable(false);
 		 
 		 JScrollPane secondAreaScroller = new JScrollPane(secondArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		 //mainAreaScroller.setPreferredSize(new Dimension(400,200));
 		 secondAreaScroller.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10,10,10,10), BorderFactory.createTitledBorder("ITEMS TAKEN:")));
-//		 JLabel header = new JLabel("PLAYER INFO");
-//		 header.setFont(FontLoader.enableFont(16f));
-//		 propertyScroller.setColumnHeaderView(header);
-//		 propertyScroller.setBorder(new EmptyBorder(10,10,10,10));
 		 
 		boardLabel.setAllSizes(mainAreaScroller, new Dimension(300, 360));
 		boardLabel.setAllSizes(secondAreaScroller, new Dimension(300,360));
@@ -335,21 +328,16 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 	                reset2.setEnabled(false);
 	                
 	            } else if (mainList.getSelectedIndex() != -1 && secondList.getSelectedIndex() == -1){
-	            //Selection, enable the fire button.
-	            	//oProperty = mainList.getSelectedValue().toString();
 	            	add.setEnabled(true);
 	                reset.setEnabled(true);
 	                add2.setEnabled(false);
 	                reset2.setEnabled(false);
 	            } else if (mainList.getSelectedIndex() == -1 && secondList.getSelectedIndex() != -1) {
-	            	//tProperty = secondList.getSelectedValue().toString();
 	            	add2.setEnabled(true);
 	                reset2.setEnabled(true);
 	                add.setEnabled(false);
 	                reset.setEnabled(false);
 	            } else {
-	            	//oProperty = mainList.getSelectedValue().toString();
-	            	//tProperty = secondList.getSelectedValue().toString();
 	            	add.setEnabled(true);
 	                reset.setEnabled(true);
 	                add2.setEnabled(true);

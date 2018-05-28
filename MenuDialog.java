@@ -1,10 +1,8 @@
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Window;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.Box;
@@ -13,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.AbstractAction;
 
 public class MenuDialog extends JDialog {
 	
@@ -53,7 +50,7 @@ public class MenuDialog extends JDialog {
                      JOptionPane.YES_NO_OPTION);
              if (n == JOptionPane.YES_OPTION) {
             	 System.exit(0);
-            	 //frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            	
              }
            
      }});

@@ -1,6 +1,3 @@
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.UIManager;
@@ -8,20 +5,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class SandboxTester {
 	
-	private static String playerOneName;
-	private static String playerTwoName;
-	private static String playerThreeName;
-	private static String playerFourName;
-	private static boolean start;
-	
-	public SandboxTester(String p1, String p2, String p3, String p4, int num) {
-		
-		playerOneName = p1;
-		playerTwoName = p2;
-		playerThreeName = p3;
-		playerFourName = p4;
-		start = true;
-	}
 	public static void main(String[] args) {
     	javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
