@@ -99,6 +99,11 @@ public class Railroad implements Space {
 	  {
 		  return isMortgaged;
 	  }
+	  
+	  public void setMortgageState(boolean set)
+	  {
+			isMortgaged = set;
+	  }
 	  public void addHouse() {}
 	  public void removeHouse() {}
 	  public void ownerNull() {}

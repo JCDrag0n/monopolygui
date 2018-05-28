@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -31,6 +32,7 @@ public class GameHandler {
 	private static JButton chance;
 	private static JButton community;
 	private static JButton useCard;
+	private static JButton manage;
 	
 	private static String chanceString;
 	private static String chestString;
@@ -128,7 +130,7 @@ public class GameHandler {
 		buy.setEnabled(false);
 		endTurn.setEnabled(false);
 		roll.setEnabled(true);
-		log.append("\n" + current.getName() + "'s turn.");
+		log.append("\n" + current.getName() + "'s turn. \n");
 		if (InitBoard.getSpaces().get(location).getOwner() !=null)
 		{
 			buy.setEnabled(false);
@@ -144,9 +146,16 @@ public class GameHandler {
 		{
 			if(current.getJailTurns() == 3)
 			{
+				log.append("\n" + current.getName() + " has been in jail for three turns. Fine is now paid. \n\n");
+				current.resetJailTurns();
+				current.setInJail(false);
 				current.changeMoney(0 - 50);
+				roll.setEnabled(true);
+				buy.setEnabled(false);
+				endTurn.setEnabled(false);
 			}
 			else {
+				current.addJailTurn();
 				JDialog jailDialog = new JDialog(frame, "JAIL OPTIONS", ModalityType.APPLICATION_MODAL);
 				JPanel cardPane = new JPanel();
 				JButton pay = new JButton(new AbstractAction("PAY FINE") {
@@ -158,9 +167,6 @@ public class GameHandler {
 		            		current.changeMoney(0 - 50);
 		            		log.append(current.getName() + " paid the fine. \n\n");
 		            		jailDialog.dispose();
-		            		roll.setEnabled(true);
-		            		endTurn.setEnabled(false);
-		            		buy.setEnabled(false);
 		            }});
 				
 				JButton rollB = new JButton(new AbstractAction("ROLL") {
@@ -181,7 +187,16 @@ public class GameHandler {
 		            		buy.setEnabled(true);
 		            		roll.setEnabled(false);
 		            		endTurn.setEnabled(true);	
-		            		current.moveTo(location);		
+		            		current.moveTo(location);
+		        		}
+		        		else
+		        		{
+		        			log.append(current.getName() + " failed to roll doubles. Truly Unfortunate \n\n");
+		        			endTurn();
+		        			endTurn.setEnabled(false);
+		        			roll.setEnabled(true);
+		        			buy.setEnabled(false);
+		        			jailDialog.dispose();
 		        		}
 		   
 
@@ -198,6 +213,7 @@ public class GameHandler {
 	            		roll.setEnabled(true);
 	            		endTurn.setEnabled(false);
 	            		buy.setEnabled(false);
+	            		jailDialog.dispose();
 
 		            }});
 				if (current.getOutCards() == 0)
@@ -221,10 +237,41 @@ public class GameHandler {
 	
 	public static void endTurn()
 	{
+		if (playerList.size() == 1)
+		{
+			buy.setEnabled(false);
+			manage.setEnabled(false);
+			endTurn.setEnabled(false);
+			roll.setEnabled(false);
+			JOptionPane.showMessageDialog(frame, "Congrats " + current.getName() + " YOU WIN!!!!");
+			
+		}
 		if (current.getMoney() < 0)
 		{
 			log.append(current.getName() + " is bankrupt!\n\n");
-			//remove all houses/hotels, set all related properties to null
+			for (int i = 0; i < 40; i++)
+			{
+				if(current.equals(spaces.get(i).getOwner()))
+				{
+					if(spaces.get(i) instanceof Property)
+					{
+						while (((Property)spaces.get(i)).getHouses() > 0)
+						{
+							((Property)spaces.get(i)).removeHouse();
+						}
+						((Property)spaces.get(i)).setMortgageState(false);
+					}
+					if(spaces.get(i) instanceof Railroad)
+					{
+						((Railroad)spaces.get(i)).setMortgageState(false);
+					}
+					if(spaces.get(i) instanceof Utility)
+					{
+						((Utility)spaces.get(i)).setMortgageState(false);
+					}
+				}
+			}
+			playerList.remove(current);
 		}
 		whoseTurn++;
 		turnHandler();
@@ -235,7 +282,7 @@ public class GameHandler {
 	
 	public static void buy()
 	{
-		InitBoard.getSpaces().get(location).buy(current);
+		InitBoard.getSpaces().get(current.getPos()).buy(current);
 		log.append(current.getName() + " has purchased " + InitBoard.getSpaces().get(location).getName() + "\n\n");
 		buy.setEnabled(false);
 	}
@@ -420,6 +467,11 @@ public class GameHandler {
 	public static void receiveRoll(JButton rollB)
 	{
 		roll = rollB;
+	}
+	
+	public static void receiveManage(JButton manageB)
+	{
+		manage = manageB;
 	}
 	
 	public static void receiveBuy(JButton buyB)

@@ -477,7 +477,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    else if (source == start || source == p3start || source == p4start) {
 		    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
 		    	if (numofPlayers == 2) {
-		    		if (playerOneName.getText().equals("") || playerTwoName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals(""))
+		    		if (playerOneName.getText() == (null) || playerTwoName.getText() == (null) || pOneToken == (null) || pTwoToken == (null) || playerOneName.getText().equals("") || playerTwoName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals(""))
 		    		{
 		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
 		    		}
@@ -497,7 +497,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    	}
 		    	
 		    	if (numofPlayers == 3) {
-		    		if (p3playerOneName.getText().equals("") || p3playerTwoName.getText().equals("") || p3playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals(""))
+		    		if (p3playerOneName.getText() == (null) || p3playerTwoName.getText() == (null) || p3playerThreeName.getText() == (null) || pOneToken == (null) || pTwoToken == (null) || pThreeToken == (null) || p3playerOneName.getText().equals("") || p3playerTwoName.getText().equals("") || p3playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals(""))
 		    		{
 		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
 		    		}
@@ -517,7 +517,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    	}
 		    	
 		    	if (numofPlayers == 4) {
-		    		if (p4playerOneName.getText().equals("") || p4playerTwoName.getText().equals("") || p4playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals("") || pFourToken.equals(""))
+		    		if (p4playerOneName.getText() == (null) || p4playerTwoName.getText() == (null) || p4playerThreeName.getText() == (null) || pOneToken == (null) || pTwoToken == (null) || pThreeToken == (null) || pFourToken == (null) || p4playerOneName.getText().equals("") || p4playerTwoName.getText().equals("") || p4playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals("") || pFourToken.equals(""))
 		    		{
 		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
 		    		}

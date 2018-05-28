@@ -40,7 +40,17 @@ public class Chance implements Space{
             {
             	p.changeMoney(200);
             }
-            InitBoard.getSpaces().get(24).payRent(p);
+            if (InitBoard.getSpaces().get(24).getOwner() != p)
+        	{
+        		if(InitBoard.getSpaces().get(24).getOwner() == null)
+        		{
+        			GameHandler.getBuy().setEnabled(true);
+        		}
+        		else
+        		{
+        			InitBoard.getSpaces().get(24).payRent(p);
+        		}
+        	}
         }
         if (ran == 2)
         {
@@ -105,33 +115,83 @@ public class Chance implements Space{
             if (p.getPos() < 5) 
             {
             	p.moveTo(5);
-            	InitBoard.getSpaces().get(5).payRent(p);
-            	InitBoard.getSpaces().get(5).payRent(p);
+            	if (InitBoard.getSpaces().get(5).getOwner() != p)
+            	{
+            		if(InitBoard.getSpaces().get(5).getOwner() == null)
+            		{
+            			GameHandler.getBuy().setEnabled(true);
+            		}
+            		else
+            		{
+            			InitBoard.getSpaces().get(5).payRent(p);
+            			InitBoard.getSpaces().get(5).payRent(p);
+            		}
+            	}
             }
             else if (p.getPos() < 15) 
             {
             	p.moveTo(15);
-            	InitBoard.getSpaces().get(15).payRent(p);
-            	InitBoard.getSpaces().get(15).payRent(p);
+            	if (InitBoard.getSpaces().get(15).getOwner() != p)
+            	{
+            		if(InitBoard.getSpaces().get(15).getOwner() == null)
+            		{
+            			GameHandler.getBuy().setEnabled(true);
+            		}
+            		else
+            		{
+            			InitBoard.getSpaces().get(15).payRent(p);
+            			InitBoard.getSpaces().get(15).payRent(p);
+            		}
+            	}
             }
             else if (p.getPos() < 25)
             {
             	p.moveTo(25);
-            	InitBoard.getSpaces().get(25).payRent(p);
-            	InitBoard.getSpaces().get(25).payRent(p);
+            	if (InitBoard.getSpaces().get(25).getOwner() != p)
+            	{
+            		if(InitBoard.getSpaces().get(25).getOwner() == null)
+            		{
+            			GameHandler.getBuy().setEnabled(true);
+            		}
+            		else
+            		{
+            			InitBoard.getSpaces().get(25).payRent(p);
+            			InitBoard.getSpaces().get(25).payRent(p);
+            		}
+            	}
             }
             else if (p.getPos() < 35) 
             {
             	p.moveTo(35);
-            	InitBoard.getSpaces().get(35).payRent(p);
-            	InitBoard.getSpaces().get(35).payRent(p);
+            	if (InitBoard.getSpaces().get(35).getOwner() != p)
+            	{
+            		if(InitBoard.getSpaces().get(35).getOwner() == null)
+            		{
+            			GameHandler.getBuy().setEnabled(true);
+            		}
+            		else
+            		{
+            			InitBoard.getSpaces().get(35).payRent(p);
+            			InitBoard.getSpaces().get(35).payRent(p);
+            		}
+            	}
             }
             else 
             {
             	p.moveTo(5);
             	p.changeMoney(200);
-            	InitBoard.getSpaces().get(5).payRent(p);
-            	InitBoard.getSpaces().get(5).payRent(p);
+            	if (InitBoard.getSpaces().get(5).getOwner() != p)
+            	{
+            		if(InitBoard.getSpaces().get(5).getOwner() == null)
+            		{
+            			GameHandler.getBuy().setEnabled(true);
+            		}
+            		else
+            		{
+            			InitBoard.getSpaces().get(5).payRent(p);
+            			InitBoard.getSpaces().get(5).payRent(p);
+            		}
+            	}
             }
         }
         if (ran == 5)
@@ -148,12 +208,12 @@ public class Chance implements Space{
         {
         	chanceString = "Go Back 3 Spaces";
             p.moveTo(p.getPos() - 3);
+            InitBoard.getSpaces().get(p.getPos()).payRent(p);
         }
         if (ran == 8)
         {
         	chanceString = "Go To Jail -- Go Directly To Jail -- Do not pass Go, do not collect $200.";
             p.goToJail();
-            GameHandler.endTurn();
         }
         if (ran == 9)
         {

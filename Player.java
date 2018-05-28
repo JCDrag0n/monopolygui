@@ -57,8 +57,8 @@ public class Player {
 		
 	}
 	
-	public void jailTurn() {
-		
+	public void addJailTurn() {
+		jailTurns++;
 	}
 	
 	public void moveTo(int n)
@@ -79,6 +79,7 @@ public class Player {
 		isInJail = true;
 		moveTo(10);
 		jailTurns = 0;
+		GameHandler.endTurn();
 	}
 	
 	public boolean hasMonopoly(String color)

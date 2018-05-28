@@ -423,6 +423,11 @@ public class Sandbox {
     	return chance;
     }
     
+    public JButton getManage()
+    {
+    	return manage;
+    }
+    
     public JButton getCommunity()
     {
     	return community;

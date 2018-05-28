@@ -51,7 +51,6 @@ public class CommunityChest implements Space {
         {
         	chestString = "Go To Jail -- Go Directly To Jail -- Do not pass Go -- Do not collect $200.";
         	p.goToJail();
-        	GameHandler.endTurn();
         }
         if (ran == 5)
         {

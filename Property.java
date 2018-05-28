@@ -67,6 +67,11 @@ public class Property implements Space{
 		return isMortgaged;
 	}
 	
+	public void setMortgageState(boolean set)
+	{
+		isMortgaged = set;
+	}
+	
 	public void addHouse() 
 	{
 		if (owner.hasMonopoly(color) && numHouses < 5)
