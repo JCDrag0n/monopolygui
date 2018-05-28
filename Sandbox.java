@@ -96,6 +96,7 @@ public class Sandbox {
     	switchPane.add(gamePane, GAMEPANEL);
     	menuPane.addElements();
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setUndecorated(true);
     	frame.setGlassPane(menuPop);
     	frame.add(switchPane);
         frame.setVisible(true);
