@@ -127,6 +127,17 @@ public class GameHandler {
 	public static void startTurn()
 	{
 		current = playerList.get(whoseTurn);
+		if (playerList.size() == 1)
+		{
+			buy.setEnabled(false);
+			manage.setEnabled(false);
+			endTurn.setEnabled(false);
+			roll.setEnabled(false);
+			JOptionPane.showMessageDialog(frame, "Congrats " + current.getName() + " YOU WIN!!!!");
+			//log.append("\n\n\n\n\n Congrats " + current.getName() + "! YOU WIN!!!!");
+			
+		}
+		else {
 		buy.setEnabled(false);
 		endTurn.setEnabled(false);
 		roll.setEnabled(true);
@@ -234,18 +245,11 @@ public class GameHandler {
 		}
 		
 	}
+	}
 	
 	public static void endTurn()
 	{
-		if (playerList.size() == 1)
-		{
-			buy.setEnabled(false);
-			manage.setEnabled(false);
-			endTurn.setEnabled(false);
-			roll.setEnabled(false);
-			JOptionPane.showMessageDialog(frame, "Congrats " + current.getName() + " YOU WIN!!!!");
-			
-		}
+		current = playerList.get(whoseTurn);
 		if (current.getMoney() < 0)
 		{
 			log.append(current.getName() + " is bankrupt!\n\n");
@@ -257,21 +261,31 @@ public class GameHandler {
 					{
 						while (((Property)spaces.get(i)).getHouses() > 0)
 						{
-							((Property)spaces.get(i)).removeHouse();
+							((Property)spaces.get(i)).subHouses();
 						}
 						((Property)spaces.get(i)).setMortgageState(false);
+						((Property)spaces.get(i)).ownerNulled();
 					}
 					if(spaces.get(i) instanceof Railroad)
 					{
 						((Railroad)spaces.get(i)).setMortgageState(false);
+						((Railroad)spaces.get(i)).ownerNulled();
 					}
 					if(spaces.get(i) instanceof Utility)
 					{
 						((Utility)spaces.get(i)).setMortgageState(false);
+						((Utility)spaces.get(i)).ownerNulled();
 					}
 				}
 			}
-			playerList.remove(current);
+			for(int i = 0; i < playerList.size(); i++)
+			{
+				if(current.equals(playerList.get(i)))
+				{
+					playerList.remove(i);
+					numofPlayers--;
+				}
+			}
 		}
 		whoseTurn++;
 		turnHandler();
@@ -283,7 +297,7 @@ public class GameHandler {
 	public static void buy()
 	{
 		InitBoard.getSpaces().get(current.getPos()).buy(current);
-		log.append(current.getName() + " has purchased " + InitBoard.getSpaces().get(location).getName() + "\n\n");
+		log.append(current.getName() + " has purchased " + InitBoard.getSpaces().get(current.getPos()).getName() + "\n\n");
 		buy.setEnabled(false);
 	}
 	
@@ -407,7 +421,7 @@ public class GameHandler {
 	
 	public static Player getNextPlayer()
 	{
-		if (whoseTurn + 1 == numofPlayers) {
+		if (whoseTurn + 1 >= numofPlayers) {
 			return playerList.get(0);
 		}
 		else {

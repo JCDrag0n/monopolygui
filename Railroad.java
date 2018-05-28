@@ -107,4 +107,9 @@ public class Railroad implements Space {
 	  public void addHouse() {}
 	  public void removeHouse() {}
 	  public void ownerNull() {}
+	  
+	  public void ownerNulled()
+		{
+			owner = null;
+		}
 }

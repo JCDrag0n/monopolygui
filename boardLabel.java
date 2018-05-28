@@ -363,8 +363,11 @@ public class boardLabel {
                 		hCount.setVisible(true);
                 		hCount.setText("HOUSES: 0 HOTEL: 1");
                 	}
+                	else
+                	{
                 	hCount.setVisible(true);
                 	hCount.setText("HOUSES: " + ((Property)GameHandler.getSpaces().get(space)).getHouses() + " HOTEL: 0");
+                	}
                 }
                 else {
                 	hCount.setVisible(false);

@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -213,8 +214,14 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	            				{
 	            					addHouses.setText("ADD HOTEL");
 	            				}
-	            				else { addHouses.setText("ADD HOUSES"); }
+	            				else { addHouses.setText("ADD HOUSES"); sellHouses.setText("SELL HOUSES");}
 	            				addHouses.setEnabled(true);
+	            				sellHouses.setEnabled(true);
+	            			}
+	            			else if (temp.getHouses() == 5)
+	            			{
+	            				addHouses.setEnabled(false);
+	            				sellHouses.setText("SELL HOTEL");
 	            				sellHouses.setEnabled(true);
 	            			}
 	            			else if (temp.getHouses() == 0)
@@ -231,7 +238,7 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		JButton source = (JButton)e.getSource();
+		JButton sourceEvent = (JButton)e.getSource();
 		int spaceIndex = 0;
 		for (int i = 0; i < 40; i++)
     	{
@@ -240,23 +247,29 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
     			spaceIndex = i;
     		}
     	}
-		if (source == mortgage)
+		if (sourceEvent == mortgage)
 		{
 			GameHandler.getSpaces().get(spaceIndex).mortgage();
 			updateList();
 		}
-		if (source == unmortgage)
+		if (sourceEvent == unmortgage)
 		{
 			GameHandler.getSpaces().get(spaceIndex).unmortgage();
 			updateList();
 		}
-		if (source == addHouses)
+		if (sourceEvent == addHouses)
 		{
 			GameHandler.getSpaces().get(spaceIndex).addHouse();
+			JOptionPane.showMessageDialog(this, "HOUSE/HOTEL ADDED");
+			updateList();
+			source.dispose();
 		}
-		if (source == sellHouses)
+		if (sourceEvent == sellHouses)
 		{
 			GameHandler.getSpaces().get(spaceIndex).removeHouse();
+			JOptionPane.showMessageDialog(this, "HOUSE/HOTEL REMOVED");
+			updateList();
+			source.dispose();
 		}
 	}
 }

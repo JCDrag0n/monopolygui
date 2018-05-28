@@ -187,5 +187,14 @@ public class Property implements Space{
 		return yCod;
 	}
 	
+	public void subHouses()
+	{
+		numHouses--;
+	}
+	
+	public void ownerNulled()
+	{
+		owner = null;
+	}
 
 }

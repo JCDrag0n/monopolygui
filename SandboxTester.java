@@ -68,6 +68,7 @@ public class SandboxTester {
                 GameHandler.receiveChance(jp.getChance());
                 GameHandler.receiveCommunity(jp.getCommunity());
                 GameHandler.receiveFrame(jp.getFrame());
+                GameHandler.receiveManage(jp.getManage());
             }
     });
 }

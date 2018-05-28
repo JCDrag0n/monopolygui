@@ -95,6 +95,11 @@ public class Utility implements Space{
 		isMortgaged = set;
 	}
 	
+	public void ownerNulled()
+	{
+		owner = null;
+	}
+	
 	public void addHouse() {}
 	public void removeHouse() {}
 	public void ownerNull() {}
