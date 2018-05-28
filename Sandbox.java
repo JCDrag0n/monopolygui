@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -68,6 +69,8 @@ public class Sandbox {
 	private JButton chance;
 	private JButton community;
 	
+	private Dimension dim;
+	
 	private JLayeredPane layeredPane;
 	
 	private Board spritePane;
@@ -92,7 +95,13 @@ public class Sandbox {
     public void createFrame() throws IOException
     {
     	frame = new JFrame("Monopoly");
-    	MainMenuPane menuPane = new MainMenuPane(frame);
+    	Toolkit toolkit =  Toolkit.getDefaultToolkit ();
+    	dim = toolkit.getScreenSize();
+    	frame.setSize(dim.width,dim.height);
+//    	frame.setExtendedState(frame.getExtendedState() | Frame.MAXIMIZED_BOTH); 
+//    	frame.setUndecorated(true);
+//    	size = frame.getBounds().getSize();
+    	MainMenuPane menuPane = new MainMenuPane(frame, dim);
     	menuPop = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -106,336 +115,21 @@ public class Sandbox {
     	//frame.getContentPane().setLayout(new BorderLayout());
         gamePane = new BackgroundPane("/Wood1.jpg");
         gamePane.setLayout(new BorderLayout());
-        boardLabel.setAllSizes(gamePane, new Dimension(1920, 1080));
+        boardLabel.setAllSizes(gamePane, dim);
         switchPane = new JPanel(new CardLayout());
     	switchPane.add(menuPane, STARTPANEL);
     	switchPane.add(gamePane, GAMEPANEL);
     	menuPane.addElements();
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setGlassPane(menuPop);
-    	frame.setPreferredSize(new Dimension(1920,1080));
-    	frame.setMaximumSize(new Dimension(1920,1080));
-    	frame.setMinimumSize(new Dimension(1920,1080));
-    	//frame.setExtendedState(frame.getExtendedState() | Frame.MAXIMIZED_BOTH); 
-    	//frame.setUndecorated(true);
+    	//frame.setPreferredSize(new Dimension(1920,1080));
+    	//frame.setMaximumSize(new Dimension(1920,1080));
+    	//frame.setMinimumSize(new Dimension(1920,1080));
     	frame.add(switchPane);
         frame.setVisible(true);
         switcher = (CardLayout)(switchPane.getLayout());
         CardSwitcher switchHandler = new CardSwitcher(switchPane, switcher);
         menuPane.passthrough(switchHandler);
-    }
-    
-    public void initBoard()
-    {
-//    	  try {
-//              boardImage = ImageIO.read(getClass().getResource("/Board.jpg"));
-//          } catch (IOException ioe) {
-//              ioe.printStackTrace();
-//          }
-//    	StretchIcon boardimg = new StretchIcon(boardImage, true);
-//    	board = new JLabel(boardimg);
-    	//board = new JFrame("Monopoly Board Test");
-//    			boardPane = new JPanel(new GridBagLayout());
-//    			boardPane.setPreferredSize(new Dimension(1000,1000));
-//    			
-//    			//board.add(boardPane);
-//    			
-//    			GridBagConstraints propertyc = new GridBagConstraints();
-//    			GridBagConstraints squarec = new GridBagConstraints();
-//    			GridBagConstraints centerc = new GridBagConstraints();
-//    			
-//    			Dimension propertyr = new Dimension(82, 132);
-//    			Dimension squared = new Dimension(132, 132);
-//    			Dimension propertyl = new Dimension(132, 82);
-//    			Dimension centerd = new Dimension(736, 736);
-//    			
-////    			propertyc.ipadx = 82;
-////    			propertyc.ipady = 132;
-////    			
-////    			squarec.ipadx = 132;
-////    			squarec.ipady = 132;
-//    			
-//    			centerc.gridwidth = 9;
-//    			centerc.gridheight = 9;
-//    			
-//    			StretchIcon propertyimg = boardLabel.imgConversion("/AtlanticPC.png");
-//    			property = new JLabel(propertyimg);
-//    			
-//    			currentIcon = new JLabel();
-//    			
-//    			fpark = new JLabel(boardLabel.imgConversion("/freeparking.png"));
-//    			boardLabel.setAllSizes(fpark, squared);
-//    			squarec.gridx = 0;
-//    			squarec.gridy = 0;
-//    			boardPane.add(fpark, squarec);
-//    			
-//    			kent = new JLabel(boardLabel.imgConversion("/kentucky.png"));
-//    			boardLabel.setAllSizes(kent, propertyr);
-//    			propertyc.gridx = 1;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(kent, propertyc);
-//    			
-//    			kent.addMouseListener(new MouseAdapter() {
-//
-//    	            @Override
-//    	            public void mouseEntered(java.awt.event.MouseEvent evt) {
-//    	            	currentIcon.setIcon(property.getIcon());
-//    	                property.setIcon(boardLabel.imgConversion("/KentuckyPC.png"));
-//    	                System.out.println("return");
-//    	            }
-//
-//    	            @Override
-//    	            public void mouseExited(java.awt.event.MouseEvent evt) {
-//    	                property.setIcon(currentIcon.getIcon());
-//    	            }
-//    	        });
-//    			
-//    			chance2 = new JLabel(boardLabel.imgConversion("chanceu.png"));
-//    			boardLabel.setAllSizes(chance2, propertyr);
-//    			propertyc.gridx = 2;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(chance2, propertyc);
-//    			
-//    			ind = new JLabel(boardLabel.imgConversion("indiana.png"));
-//    			boardLabel.setAllSizes(ind, propertyr);
-//    			propertyc.gridx = 3;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(ind, propertyc);
-//    			
-//    			ill = new JLabel(boardLabel.imgConversion("illinois.png"));
-//    			boardLabel.setAllSizes(ill, propertyr);
-//    			propertyc.gridx = 4;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(ill, propertyc);
-//    			
-//    			bor = new JLabel(boardLabel.imgConversion("borail.png"));
-//    			boardLabel.setAllSizes(bor, propertyr);
-//    			propertyc.gridx = 5;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(bor, propertyc);
-//    			
-//    			alta = new JLabel(boardLabel.imgConversion("atlantic.png"));
-//    			boardLabel.setAllSizes(alta, propertyr);
-//    			propertyc.gridx = 6;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(alta, propertyc);
-//    			
-//    			vent = new JLabel(boardLabel.imgConversion("ventnor.png"));
-//    			boardLabel.setAllSizes(vent, propertyr);
-//    			propertyc.gridx = 7;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(vent, propertyc);
-//    			
-//    			water = new JLabel(boardLabel.imgConversion("water.png"));
-//    			boardLabel.setAllSizes(water, propertyr);
-//    			propertyc.gridx = 8;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(water, propertyc);
-//    			
-//    			marvin = new JLabel(boardLabel.imgConversion("marvin.png"));
-//    			boardLabel.setAllSizes(marvin, propertyr);
-//    			propertyc.gridx = 9;
-//    			propertyc.gridy = 0;
-//    			boardPane.add(marvin, propertyc);
-//    			
-//    			gtjail = new JLabel(boardLabel.imgConversion("gotojail.png"));
-//    			boardLabel.setAllSizes(gtjail, squared);
-//    			squarec.gridx = 10;
-//    			squarec.gridy = 0;
-//    			boardPane.add(gtjail, squarec);
-//    			
-//    			pacific = new JLabel(boardLabel.imgConversion("pacific.png"));
-//    			boardLabel.setAllSizes(pacific, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 1;
-//    			boardPane.add(pacific, propertyc);
-//    			
-//    			north = new JLabel(boardLabel.imgConversion("northc.png"));
-//    			boardLabel.setAllSizes(north, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 2;
-//    			boardPane.add(north, propertyc);
-//    			
-//    			cchest3 = new JLabel(boardLabel.imgConversion("communitycr.png"));
-//    			boardLabel.setAllSizes(cchest3, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 3;
-//    			boardPane.add(cchest3, propertyc);
-//    			
-//    			pennave = new JLabel(boardLabel.imgConversion("pennave.png"));
-//    			boardLabel.setAllSizes(pennave, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 4;
-//    			boardPane.add(pennave, propertyc);
-//    			
-//    			shortL = new JLabel(boardLabel.imgConversion("shortline.png"));
-//    			boardLabel.setAllSizes(shortL, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 5;
-//    			boardPane.add(shortL, propertyc);
-//    			
-//    			chance3 = new JLabel(boardLabel.imgConversion("chancer.png"));
-//    			boardLabel.setAllSizes(chance3, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 6;
-//    			boardPane.add(chance3, propertyc);
-//    			
-//    			park = new JLabel(boardLabel.imgConversion("park.png"));
-//    			boardLabel.setAllSizes(park, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 7;
-//    			boardPane.add(park, propertyc);
-//    			
-//    			tax2 = new JLabel(boardLabel.imgConversion("luxtax.png"));
-//    			boardLabel.setAllSizes(tax2, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 8;
-//    			boardPane.add(tax2, propertyc);
-//    			
-//    			boardwalk = new JLabel(boardLabel.imgConversion("boardwalk.png"));
-//    			boardLabel.setAllSizes(boardwalk, propertyl);
-//    			propertyc.gridx = 10;
-//    			propertyc.gridy = 9;
-//    			boardPane.add(boardwalk, propertyc);
-//    			
-//    			go = new JLabel(boardLabel.imgConversion("go.png"));
-//    			boardLabel.setAllSizes(go, squared);
-//    			squarec.gridx = 10;
-//    			squarec.gridy = 10;
-//    			boardPane.add(go, squarec);
-//    			
-//    			ny = new JLabel(boardLabel.imgConversion("ny.png"));
-//    			boardLabel.setAllSizes(ny, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 1;
-//    			boardPane.add(ny, propertyc);
-//    			
-//    			tenn = new JLabel(boardLabel.imgConversion("tennessee.png"));
-//    			boardLabel.setAllSizes(tenn, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 2;
-//    			boardPane.add(tenn, propertyc);
-//    			
-//    			cchest2 = new JLabel(boardLabel.imgConversion("communitycl.png"));
-//    			boardLabel.setAllSizes(cchest2, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 3;
-//    			boardPane.add(cchest2, propertyc);
-//    			
-//    			stj = new JLabel(boardLabel.imgConversion("stjames.png"));
-//    			boardLabel.setAllSizes(stj, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 4;
-//    			boardPane.add(stj, propertyc);
-//    			
-//    			penn = new JLabel(boardLabel.imgConversion("pennrail.png"));
-//    			boardLabel.setAllSizes(penn, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 5;
-//    			boardPane.add(penn, propertyc);
-//    			
-//    			virg = new JLabel(boardLabel.imgConversion("virginia.png"));
-//    			boardLabel.setAllSizes(virg, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 6;
-//    			boardPane.add(virg, propertyc);
-//    			
-//    			stat = new JLabel(boardLabel.imgConversion("states.png"));
-//    			boardLabel.setAllSizes(stat, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 7;
-//    			boardPane.add(stat, propertyc);
-//    			
-//    			ele = new JLabel(boardLabel.imgConversion("electric.png"));
-//    			boardLabel.setAllSizes(ele, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 8;
-//    			boardPane.add(ele, propertyc);
-//    			
-//    			stc = new JLabel(boardLabel.imgConversion("stcharles.png"));
-//    			boardLabel.setAllSizes(stc, propertyl);
-//    			propertyc.gridx = 0;
-//    			propertyc.gridy = 9;
-//    			boardPane.add(stc, propertyc);
-//    			
-//    			con = new JLabel(boardLabel.imgConversion("connecticut.png"));
-//    			boardLabel.setAllSizes(con, propertyr);
-//    			propertyc.gridx = 1;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(con, propertyc);
-//    			
-//    			ver = new JLabel(boardLabel.imgConversion("vermont.png"));
-//    			boardLabel.setAllSizes(ver, propertyr);
-//    			propertyc.gridx = 2;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(ver, propertyc);
-//    			
-//    			chance = new JLabel(boardLabel.imgConversion("chanced.png"));
-//    			boardLabel.setAllSizes(chance, propertyr);
-//    			propertyc.gridx = 3;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(chance, propertyc);
-//    			
-//    			ori = new JLabel(boardLabel.imgConversion("oriental.png"));
-//    			boardLabel.setAllSizes(ori, propertyr);
-//    			propertyc.gridx = 4;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(ori, propertyc);
-//    			
-//    			rrail = new JLabel(boardLabel.imgConversion("readingrail.png"));
-//    			boardLabel.setAllSizes(rrail, propertyr);
-//    			propertyc.gridx = 5;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(rrail, propertyc);
-//    			
-//    			tax1 = new JLabel(boardLabel.imgConversion("inctax.png"));
-//    			boardLabel.setAllSizes(tax1, propertyr);
-//    			propertyc.gridx = 6;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(tax1, propertyc);
-//    			
-//    			balt = new JLabel(boardLabel.imgConversion("baltic.png"));
-//    			boardLabel.setAllSizes(balt, propertyr);
-//    			propertyc.gridx = 7;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(balt, propertyc);
-//    			
-//    			cchest = new JLabel(boardLabel.imgConversion("communitycd.png"));
-//    			boardLabel.setAllSizes(cchest, propertyr);
-//    			propertyc.gridx = 8;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(cchest, propertyc);
-//    			
-//    			med = new JLabel(boardLabel.imgConversion("mediterranean.png"));
-//    			boardLabel.setAllSizes(med, propertyr);
-//    			propertyc.gridx = 9;
-//    			propertyc.gridy = 10;
-//    			boardPane.add(med, propertyc);
-//    			
-//    			jail = new JLabel(boardLabel.imgConversion("jail.png"));
-//    			boardLabel.setAllSizes(jail, squared);
-//    			squarec.gridx = 0;
-//    			squarec.gridy = 10;
-//    			boardPane.add(jail, squarec);
-//    			
-//    			center = new JLabel(boardLabel.imgConversion("center.png"));
-//    			boardLabel.setAllSizes(center, centerd);
-//    			centerc.gridx = 1;
-//    			centerc.gridy = 1;
-//    			boardPane.add(center, centerc);
-//    			
-//    			boardPane.setBackground(Color.BLACK);
-//    			boardPane.setVisible(true);
-//    	boardPane.setPreferredSize(new Dimension(1000,1000));
-//    	boardPane.setBounds(10, 20, 1000, 1000);
-//    	boardPane.setOpaque(false);
-//    	boardPane.setFocusable(true);
-//    	boardPane.requestFocus();
-    	
-//    	board.setHorizontalAlignment(JLabel.CENTER);
-//    	board.setVerticalAlignment(JLabel.CENTER);
-
-    	//frame.pack();
     }
     
     public void addBoard()
@@ -446,7 +140,7 @@ public class Sandbox {
     	frame.pack();
     	spritePane = new Board(20);
     	spritePane.setPreferredSize(new Dimension(1000, 1000));
-    	spritePane.setBounds(10, 20, 1000, 1000);
+    	spritePane.setBounds(10, ((dim.height) - 1000)/4, 1000, 1000);
     	
     	chancePop = new JPanel() {
             protected void paintComponent(Graphics g) {
@@ -502,7 +196,7 @@ public class Sandbox {
     	log.setWrapStyleWord(true);
     	header = new JLabel("Log");
     	scrollPane = new JScrollPane(log, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    	scrollPane.setPreferredSize(new Dimension(320,408));
+    	scrollPane.setPreferredSize(new Dimension(330,420));
     	scrollPane.setColumnHeaderView(header);
     	imgHolder.add(scrollPane);
     	//frame.pack();

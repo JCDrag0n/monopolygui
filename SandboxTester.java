@@ -53,7 +53,6 @@ public class SandboxTester {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				jp.initBoard();
                 jp.addBoard();
                 jp.initUI();
                 jp.imageUI();

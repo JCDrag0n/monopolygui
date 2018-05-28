@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -52,6 +53,8 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private JButton p4back;
 	private JButton p4start;
 	
+	private JButton checkState;
+	
 	private JComboBox oneTokenList;
 	private JComboBox twoTokenList;
 	private JComboBox threeTokenList;
@@ -77,6 +80,8 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	private String pTwoName;
 	private String pThreeName;
 	private String pFourName;
+	
+	private int boxes = 0;
 	
 	private String[] tokens = { "", "Boot", "Car", "Dog", "Iron", "Thimble", "TopHat", "WheelBarrow" };
 	
@@ -161,6 +166,8 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		p4start = new JButton("START");
 		p4back = new JButton("BACK");
 		
+		checkState = new JButton();
+		
 		oneTokenList = new JComboBox(tokens);
 		oneTokenList.setSelectedIndex(0);
 		oneTokenList.addActionListener(this);
@@ -207,6 +214,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		p3back.addActionListener(this);
 		p4start.addActionListener(this);
 		p4back.addActionListener(this);
+		checkState.addActionListener(this);
 		
 		oneTokenList.addActionListener(this);
 		twoTokenList.addActionListener(this);
@@ -431,7 +439,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	    {
 	    	source = (JButton)event.getSource();
 	    	if (source == two) {
-	    		
+	    		start.setEnabled(false);
 		    	sourcePane = (JPanel)source.getParent();
 		 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
 		 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
@@ -439,7 +447,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		        numofPlayers = 2;
 		        
 		    } else if (source == three){
-		    	
+		    	 p3start.setEnabled(false);
 		    	 sourcePane = (JPanel)source.getParent();
 		 	     sourceSwitcherPane = (JPanel)sourcePane.getParent();
 		 	     layout = (CardLayout)sourceSwitcherPane.getLayout();
@@ -447,7 +455,7 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    	 numofPlayers = 3;
 		    	
 		    } else if (source == four){
-		    	
+		    	p4start.setEnabled(false);
 		    	sourcePane = (JPanel)source.getParent();
 		 	    sourceSwitcherPane = (JPanel)sourcePane.getParent();
 		 	    layout = (CardLayout)sourceSwitcherPane.getLayout();
@@ -467,31 +475,67 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 		    }
 		    
 		    else if (source == start || source == p3start || source == p4start) {
-
 		    	//switchHandler.switchTo(Sandbox.GAMEPANEL);
 		    	if (numofPlayers == 2) {
-		    		pOneName = playerOneName.getText();
-		    		pTwoName = playerTwoName.getText();
-		    		pThreeName = "";
-		    		pFourName = "";
+		    		if (playerOneName.getText().equals("") || playerTwoName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals(""))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else if (pOneToken.equals(pTwoToken))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLAYERS MUST HAVE DIFFERENT TOKENS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else {
+		    			pOneName = playerOneName.getText();
+			    		pTwoName = playerTwoName.getText();
+			    		pThreeName = "";
+			    		pFourName = "";
+			    		GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, numofPlayers);
+				    	dispose();
+		    		}
+		    		
 		    	}
 		    	
 		    	if (numofPlayers == 3) {
-		    		pOneName = p3playerOneName.getText();
-			    	pTwoName = p3playerTwoName.getText();
-			    	pThreeName = p3playerThreeName.getText();
-			    	pFourName = ""; 
+		    		if (p3playerOneName.getText().equals("") || p3playerTwoName.getText().equals("") || p3playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals(""))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else if (pOneToken.equals(pTwoToken) || pOneToken.equals(pThreeToken) || pTwoToken.equals(pThreeToken))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLAYERS MUST HAVE DIFFERENT TOKENS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else {
+		    			pOneName = p3playerOneName.getText();
+				    	pTwoName = p3playerTwoName.getText();
+				    	pThreeName = p3playerThreeName.getText();
+				    	pFourName = ""; 
+				    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, numofPlayers);
+				    	dispose();
+		    		}
+		    		
 		    	}
 		    	
 		    	if (numofPlayers == 4) {
-		    		pOneName = p4playerOneName.getText();
-			    	pTwoName = p4playerTwoName.getText();
-			    	pThreeName = p4playerThreeName.getText();
-			    	pFourName = playerFourName.getText(); 
+		    		if (p4playerOneName.getText().equals("") || p4playerTwoName.getText().equals("") || p4playerThreeName.getText().equals("") || pOneToken.equals("") || pTwoToken.equals("") || pThreeToken.equals("") || pFourToken.equals(""))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLEASE FILL ALL FIELDS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else if (pOneToken.equals(pTwoToken) || pOneToken.equals(pThreeToken) || pOneToken.equals(pFourToken) || pTwoToken.equals(pThreeToken) || pTwoToken.equals(pFourToken) || pThreeToken.equals(pFourToken))
+		    		{
+		    			JOptionPane.showMessageDialog(this, "PLAYERS MUST HAVE DIFFERENT TOKENS", "ERROR", JOptionPane.WARNING_MESSAGE);
+		    		}
+		    		else {
+		    			pOneName = p4playerOneName.getText();
+				    	pTwoName = p4playerTwoName.getText();
+				    	pThreeName = p4playerThreeName.getText();
+				    	pFourName = playerFourName.getText(); 
+				    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, numofPlayers);
+				    	dispose();
+		    		}
+		    		
 		    	}
-		    	GameHandler test = new GameHandler(pOneName, pTwoName, pThreeName, pFourName, pOneToken, pTwoToken, pThreeToken, pFourToken, switchHandler, numofPlayers);
-		    	dispose();
-		    	
+
 		    }
 	    }
 	    
@@ -570,10 +614,10 @@ public class PlayerInitMenu extends JDialog implements ActionListener{
 	        	start.setEnabled(true);
 	        	p3start.setEnabled(true);
 	        	p4start.setEnabled(true);
-	        }
+	        }   
 	    }
 
-	    
+ 
 
 	    }
 	

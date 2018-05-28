@@ -83,7 +83,6 @@ public class ManageDialog extends JDialog {
 					public void actionPerformed(ActionEvent e)
 					{
 						String text = otherPlayer.getText();
-						System.out.println(text);
 						for(int i = 0; i < GameHandler.getPlayerList().size(); i++)
 						{
 				

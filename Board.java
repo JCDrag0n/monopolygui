@@ -427,8 +427,8 @@ public class Board extends JPanel implements Runnable {
             y = 950;
             
             propertyPane = new JPanel(new BorderLayout());
-            propertyPane.setPreferredSize(new Dimension(320, 408));
-            property.setPreferredSize(new Dimension(320, 408));
+            propertyPane.setPreferredSize(new Dimension(330, 420));
+            property.setPreferredSize(new Dimension(330, 420));
             propertyPane.add(property, BorderLayout.CENTER);
             propertyPane.setVisible(true);
             propertyPane.add(hCount, BorderLayout.PAGE_END);

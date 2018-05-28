@@ -360,18 +360,21 @@ public class boardLabel {
                 {
                 	if (((Property)GameHandler.getSpaces().get(space)).getHouses() == 5)
                 	{
+                		hCount.setVisible(true);
                 		hCount.setText("HOUSES: 0 HOTEL: 1");
                 	}
-                	hCount.setText("HOUSES: " + ((Property)GameHandler.getSpaces().get(space)).getHouses() + " HOTELS: 0");
+                	hCount.setVisible(true);
+                	hCount.setText("HOUSES: " + ((Property)GameHandler.getSpaces().get(space)).getHouses() + " HOTEL: 0");
                 }
                 else {
-                	hCount.setText("HOUSES: 0 HOTEL: 0");
+                	hCount.setVisible(false);
                 }
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 app.setIcon(reset.getIcon());
+                hCount.setVisible(true);
                 hCount.setText(temp);
             }
         });

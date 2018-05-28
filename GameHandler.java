@@ -403,6 +403,11 @@ public class GameHandler {
 		return endTurn;
 	}
 	
+	public static JTextArea getLog()
+	{
+		return log;
+	}
+	
 	public static ArrayList<Space> getSpaces()
 	{
 		return spaces;

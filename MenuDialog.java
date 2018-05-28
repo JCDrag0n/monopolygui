@@ -44,10 +44,6 @@ public class MenuDialog extends JDialog {
 		menuPane.setLayout(new BoxLayout(menuPane, BoxLayout.PAGE_AXIS));
 		menuPane.add(continued);
 		menuPane.add(Box.createRigidArea(area));
-		menuPane.add(new ButtonCreator("SAVE", size));
-		menuPane.add(Box.createRigidArea(area));
-		menuPane.add(new ButtonCreator("OPTIONS", size));
-		menuPane.add(Box.createRigidArea(area));
 		quit = new JButton(new AbstractAction("QUIT") {
 
 		public void actionPerformed(ActionEvent evt) {

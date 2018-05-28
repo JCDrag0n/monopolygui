@@ -46,12 +46,12 @@ public class MainMenuPane extends JPanel implements ActionListener{
 	private int width = (int) screenSize.getWidth();
 	private int height = (int) screenSize.getHeight();
 
-	public MainMenuPane(JFrame frame)
+	public MainMenuPane(JFrame frame, Dimension size)
 	{
 		super();
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		this.frame = frame;
-		boardLabel.setAllSizes(this, new Dimension(1920, 1080));
+		boardLabel.setAllSizes(this, size);
 		try {
 		     backgroundimg = ImageIO.read(getClass().getResource("/Wood1.jpg"));
 		    } catch (IOException ioe) {

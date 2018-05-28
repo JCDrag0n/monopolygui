@@ -72,7 +72,7 @@ public class Railroad implements Space {
 		  {
 			  isMortgaged = true;
 			  owner.changeMoney(mortgage);
-			  System.out.println(owner.getName() + " has mortgaged " + this.getName());
+			  GameHandler.getLog().append("\n" + owner.getName() + " has mortgaged " + this.getName() + "\n");
 		  }
 	  }
 	  public void unmortgage()
@@ -81,7 +81,7 @@ public class Railroad implements Space {
 		  {
 			  isMortgaged = false;
 			  owner.changeMoney(0 - (int) (mortgage * 1.1));
-			  System.out.println(owner.getName() + " has unmortgaged " + this.getName());
+			  GameHandler.getLog().append("\n" + owner.getName() + " has unmortgaged " + this.getName() + "\n");
 		  }
 	  }
 	  

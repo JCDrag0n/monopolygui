@@ -79,7 +79,7 @@ public class Property implements Space{
 				owner.changeHotel(1);
 			}
 			else {owner.changeHouses(1);}
-			System.out.println(owner.getName() + " has added a house to " + this.getName());
+			GameHandler.getLog().append("\n" + owner.getName() + " has added a house to " + this.getName() + "\n");
 		}	
 	}
 	public void removeHouse()
@@ -97,7 +97,7 @@ public class Property implements Space{
 			{
 				owner.changeHouses(0 - 1);
 			}
-			System.out.println(owner.getName() + "has removed a house from " + this.getName());
+			GameHandler.getLog().append("\n" + owner.getName() + "has removed a house from " + this.getName() + "\n");
 		}
 	}
 	public void mortgage()
@@ -106,7 +106,7 @@ public class Property implements Space{
 		{
 			isMortgaged = true;
 			owner.changeMoney(mortgage);
-			System.out.println(owner.getName() + " has mortgaged " + this.getName());
+			GameHandler.getLog().append("\n" + owner.getName() + " has mortgaged " + this.getName() + "\n");
 		}
 	}
 	public void unmortgage()
@@ -115,7 +115,7 @@ public class Property implements Space{
 		{
 			isMortgaged = false;
 			owner.changeMoney(0 - (int) (mortgage * 1.1));
-			System.out.println(owner.getName() + " has unmortgaged " + this.getName());
+			GameHandler.getLog().append("\n" + owner.getName() + " has unmortgaged " + this.getName() + "\n");
 		}
 	}
 	
