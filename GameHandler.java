@@ -114,7 +114,7 @@ public class GameHandler {
 	
 	public static void turnHandler()
 	{
-		if (whoseTurn == numofPlayers)
+		if (whoseTurn >= numofPlayers)
 		{
 			whoseTurn = 0;
 		}
@@ -307,9 +307,9 @@ public class GameHandler {
 		log.append(current.getName() + " has rolled a " + i + " and " + j + ", totalling " + lastRoll +"\n\n");
 		
 		location = current.getPos() + i + j;
-		if (location + i + j >= 40)
+		if (location >= 40)
 		{	
-			location = (location + i + j) % 40;
+			location = (location ) % 40;
 			current.changeMoney(200);
 		}
 		if (i == j)

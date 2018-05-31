@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -39,10 +40,13 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	private String property;
 	private String mProperty;
 	
-	public PropertyList(JDialog source)
+	private JTextArea handler;
+	
+	public PropertyList(JDialog source, JTextArea properties)
 	{
 		super(new BorderLayout());
 		this.source = source;
+		handler = properties;
 	
 		listModel = new DefaultListModel();
 		list = new JList<String>(listModel);
@@ -104,6 +108,8 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 source.dispose();
+				 handler.setText("");
+				 handler.append("Name: " + GameHandler.getPlayer().getName() + "\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 			 }
 		});
 	    mortgage.setEnabled(false);
@@ -229,6 +235,10 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 	            				sellHouses.setEnabled(false);
 	            			}
 	            		}
+	            		else {
+	            			addHouses.setEnabled(false);
+            				sellHouses.setEnabled(false);
+	            		}
 	            	}
 	            }
 	        }
@@ -262,6 +272,8 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 			JOptionPane.showMessageDialog(this, "HOUSE/HOTEL ADDED");
 			updateList();
 			source.dispose();
+			handler.setText("");
+			handler.append("Name: " + GameHandler.getPlayer().getName() + "\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 		}
 		if (sourceEvent == sellHouses)
 		{
@@ -269,6 +281,8 @@ public class PropertyList extends JPanel implements ListSelectionListener, Actio
 			JOptionPane.showMessageDialog(this, "HOUSE/HOTEL REMOVED");
 			updateList();
 			source.dispose();
+			handler.setText("");
+			handler.append("Name: " + GameHandler.getPlayer().getName() + "\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 		}
 	}
 }

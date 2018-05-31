@@ -27,6 +27,7 @@ public class ManageDialog extends JDialog {
 	private Dimension buttonD = new Dimension(300, 100);
 	private Window frame;
 	private String player = null;
+	private JTextArea properties;
 	
 	public ManageDialog(Window owner, String title, Dialog.ModalityType modalityType)
 	{
@@ -53,7 +54,7 @@ public class ManageDialog extends JDialog {
 		 wallet.setIcon(result);
 		 wallet.setHorizontalTextPosition(JLabel.LEADING);
 		 
-		 JTextArea properties = new JTextArea("Name: " + GameHandler.getPlayer().getName() + "\n" + "Token: Car\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
+		 properties = new JTextArea("Name: " + GameHandler.getPlayer().getName() + "\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 		 properties.setFont(FontLoader.enableFont(14f));
 		 properties.setEditable(false);
 		 
@@ -89,7 +90,7 @@ public class ManageDialog extends JDialog {
 								tradeWho.dispose();
 								JDialog tradeDialog = new JDialog(frame, "TRADE",
 					                    ModalityType.APPLICATION_MODAL);
-								TradeList list = new TradeList(tradeDialog);
+								TradeList list = new TradeList(tradeDialog, properties);
 								tradeDialog.add(list);
 								tradeDialog.pack();
 								list.updateList(player);
@@ -120,7 +121,7 @@ public class ManageDialog extends JDialog {
 				{
 					JDialog tradeDialog = new JDialog(frame, "TRADE",
 		                    ModalityType.APPLICATION_MODAL);
-					TradeList list = new TradeList(tradeDialog);
+					TradeList list = new TradeList(tradeDialog, properties);
 					tradeDialog.add(list);
 					tradeDialog.pack();
 					list.updateList();
@@ -136,7 +137,7 @@ public class ManageDialog extends JDialog {
 			 {
 				 JDialog propertiesDialog = new JDialog(frame, "PROPERTIES",
 		                    ModalityType.APPLICATION_MODAL);
-				 PropertyList propList = new PropertyList(propertiesDialog);
+				 PropertyList propList = new PropertyList(propertiesDialog, properties);
 				 propertiesDialog.add(propList);
 				 propList.updateList();
 				 propertiesDialog.pack();
@@ -169,5 +170,6 @@ public class ManageDialog extends JDialog {
 		 
 		 
 	}
+	
 
 }

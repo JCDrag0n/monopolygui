@@ -57,10 +57,13 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 	
 	private Player otroPlayer;
 	
-	public TradeList(JDialog source)
+	private JTextArea through;
+	
+	public TradeList(JDialog source, JTextArea helper)
 	{
 		super(new BorderLayout());
 		this.source = source;
+		through = helper;
 		mainListModel = new DefaultListModel();
 		
 		mainList = new JList(mainListModel);
@@ -204,6 +207,8 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 source.dispose();
+				 through.setText("");
+				 through.append("Name: " + GameHandler.getPlayer().getName() + "\n" + "Wallet: " + GameHandler.getPlayer().getMoney() + "$\n\n ------------------------------- \n\n");
 			 }
 		});
 		trade = new JButton("TRADE");
@@ -355,7 +360,7 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 		if (source == add)
 		{
 			oProperty = mainList.getSelectedValue().toString();
-			mainArea.append(oProperty);
+			mainArea.append(oProperty + "\n");
 			oPropertyTrade.add(oProperty);
 			trade.setEnabled(true);
 		}
@@ -370,7 +375,7 @@ public class TradeList extends JPanel implements ListSelectionListener, ActionLi
 		if (source == add2)
 		{
 			tProperty = secondList.getSelectedValue().toString();
-			secondArea.append(tProperty);
+			secondArea.append(tProperty  + "\n");
 			tPropertyTrade.add(tProperty);
 			trade.setEnabled(true);
 		}
