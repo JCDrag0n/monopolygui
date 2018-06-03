@@ -109,6 +109,7 @@ public class GameHandler {
 		isReady = true;
         log.append("Welcome to Monopoly!\n\n");
         log.append(current.getName() + "'s turn.\n");
+        endTurn.setEnabled(false);
         
 	}
 	
