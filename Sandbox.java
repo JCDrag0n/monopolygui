@@ -1,19 +1,27 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.CardLayout;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
@@ -66,6 +74,9 @@ public class Sandbox {
 	
 	final static String STARTPANEL = "MAIN MENU";
 	final static String GAMEPANEL = "MONOPOLY";
+	
+	private GraphicsDevice device;
+    private boolean isFullScreenSupported = false;
 
 	
     public Sandbox()
@@ -75,10 +86,15 @@ public class Sandbox {
     public void createFrame() throws IOException
     {
     	frame = new JFrame("Monopoly");
-    	Toolkit toolkit =  Toolkit.getDefaultToolkit ();
-    	dim = toolkit.getScreenSize();
-    	frame.setSize(dim.width,dim.height);
-    	MainMenuPane menuPane = new MainMenuPane(frame, dim);
+    	Toolkit toolkit =  Toolkit.getDefaultToolkit();
+    //	dim = toolkit.getScreenSize();
+    frame.setSize(new Dimension(1920,1080));
+    GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    GraphicsDevice defaultScreen = env.getDefaultScreenDevice();
+    DisplayModeChanger(frame, device, defaultScreen);
+    enableOSXFullscreen(frame);
+    requestOSXFullscreen(frame);
+    	MainMenuPane menuPane = new MainMenuPane(frame, new Dimension(1920,1080));
     	menuPop = new JPanel() {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -90,13 +106,13 @@ public class Sandbox {
         menuPop.setVisible(false);
         gamePane = new BackgroundPane("/Wood1.jpg");
         gamePane.setLayout(new BorderLayout());
-        boardLabel.setAllSizes(gamePane, dim);
+        boardLabel.setAllSizes(gamePane, new Dimension(1920,1080));
         switchPane = new JPanel(new CardLayout());
     	switchPane.add(menuPane, STARTPANEL);
     	switchPane.add(gamePane, GAMEPANEL);
     	menuPane.addElements();
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setUndecorated(true);
+	//frame.setUndecorated(true);
     	frame.setGlassPane(menuPop);
     	frame.add(switchPane);
         frame.setVisible(true);
@@ -113,7 +129,7 @@ public class Sandbox {
     	frame.pack();
     	spritePane = new Board(20);
     	spritePane.setPreferredSize(new Dimension(1000, 1000));
-    	spritePane.setBounds(10, ((dim.height) - 1000)/4, 1000, 1000);
+    	spritePane.setBounds(10, 20, 1000, 1000);
     	
     	chancePop = new JPanel() {
             protected void paintComponent(Graphics g) {
@@ -389,5 +405,41 @@ public class Sandbox {
         return bi;
     }
     
+    public static void enableOSXFullscreen(Window window) {
+        //Preconditions.checkNotNull(window);
+        try {
+            Class util = Class.forName("com.apple.eawt.FullScreenUtilities");
+            Class params[] = new Class[]{Window.class, Boolean.TYPE};
+            Method method = util.getMethod("setWindowCanFullScreen", params);
+            method.invoke(util, window, true);
+        } catch (ClassNotFoundException e1) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void requestOSXFullscreen(Window window) {
+        try {
+            Class appClass = Class.forName("com.apple.eawt.Application");
+            Class params[] = new Class[]{};
+
+            Method getApplication = appClass.getMethod("getApplication", params);
+            Object application = getApplication.invoke(appClass);
+            Method requestToggleFulLScreen = application.getClass().getMethod("requestToggleFullScreen", Window.class);
+
+            requestToggleFulLScreen.invoke(application, window);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public static void DisplayModeChanger(Window owner, GraphicsDevice deviceOwner, final GraphicsDevice device) {
+
+        deviceOwner = device;
+        DisplayMode dm = new DisplayMode(1920, 1080, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+        device.setDisplayMode(dm);
+        owner.setSize(new Dimension(dm.getWidth(), dm.getHeight()));
+        owner.validate();
+       }
 
 }

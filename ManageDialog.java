@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 public class ManageDialog extends JDialog {
@@ -71,9 +72,10 @@ public class ManageDialog extends JDialog {
 		 JButton trade = new JButton("TRADE");
 		 trade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Window parentWindow = SwingUtilities.windowForComponent(trade);
 				if(GameHandler.getNumPlayers() > 2)
 				{
-				JDialog tradeWho = new JDialog(frame, "TRADE OPTIONS", ModalityType.APPLICATION_MODAL);
+				JDialog tradeWho = new JDialog(parentWindow, "TRADE OPTIONS", ModalityType.APPLICATION_MODAL);
 				JPanel cardPane = new JPanel();
 				JTextField otherPlayer = new JTextField(20);
 				otherPlayer.addActionListener(new ActionListener() {
@@ -88,7 +90,7 @@ public class ManageDialog extends JDialog {
 							{
 								player = text;
 								tradeWho.dispose();
-								JDialog tradeDialog = new JDialog(frame, "TRADE",
+								JDialog tradeDialog = new JDialog(parentWindow, "TRADE",
 					                    ModalityType.APPLICATION_MODAL);
 								TradeList list = new TradeList(tradeDialog, properties);
 								tradeDialog.add(list);
@@ -100,7 +102,7 @@ public class ManageDialog extends JDialog {
 						}
 						if (player == null)
 						{
-							JOptionPane.showMessageDialog(frame, "PLAYER NOT FOUND.", "ERROR", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(parentWindow, "PLAYER NOT FOUND.", "ERROR", JOptionPane.WARNING_MESSAGE);
 						}
 					}
 					
@@ -119,7 +121,7 @@ public class ManageDialog extends JDialog {
 				}
 				else
 				{
-					JDialog tradeDialog = new JDialog(frame, "TRADE",
+					JDialog tradeDialog = new JDialog(parentWindow, "TRADE",
 		                    ModalityType.APPLICATION_MODAL);
 					TradeList list = new TradeList(tradeDialog, properties);
 					tradeDialog.add(list);
@@ -135,7 +137,8 @@ public class ManageDialog extends JDialog {
 		 manProperties.addActionListener(new ActionListener() {
 			 public void actionPerformed(ActionEvent e)
 			 {
-				 JDialog propertiesDialog = new JDialog(frame, "PROPERTIES",
+				 Window parentWindow = SwingUtilities.windowForComponent(manProperties);
+				 JDialog propertiesDialog = new JDialog(parentWindow, "PROPERTIES",
 		                    ModalityType.APPLICATION_MODAL);
 				 PropertyList propList = new PropertyList(propertiesDialog, properties);
 				 propertiesDialog.add(propList);
